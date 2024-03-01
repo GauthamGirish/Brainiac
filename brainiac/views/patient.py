@@ -1,8 +1,7 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
-patient = Blueprint('patient', __name__)
-
+patient = Blueprint('patient', __name__, template_folder='../templates/patient')
 
 @patient.route('/dashboard')
 def dashboard():
-    return '<h1>Patient Dash</h1>'
+    return render_template('patient_dashboard.html')
