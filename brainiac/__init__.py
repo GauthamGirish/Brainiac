@@ -11,6 +11,7 @@ def create_app():
     # Get the MongoDB URI from environment variables
     app.config['MONGO_URI'] = os.getenv('MONGO_URI')
     app.config['MONGO_URI'] = os.getenv('SECRET_KEY')
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
 
     # Import and register blueprints
     from .views.auth import auth
