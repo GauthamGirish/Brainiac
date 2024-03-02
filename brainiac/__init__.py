@@ -1,23 +1,37 @@
-from flask import Flask
-from dotenv import load_dotenv, find_dotenv
 import os
+from flask import Flask, render_template
 
+def create_app(test_config=None):
+    # create and configure the app
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+    )
 
-def create_app():
-    app = Flask(__name__)
-    # Load environment variables from .env file
-    load_dotenv(find_dotenv())
+    if test_config is None:
+        # load the instance config, if it exists, when not testing
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        # load the test config if passed in
+        app.config.from_mapping(test_config)
 
-    # Get the MongoDB URI from environment variables
-    app.config['MONGO_URI'] = os.getenv('MONGO_URI')
-    app.config['MONGO_URI'] = os.getenv('SECRET_KEY')
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    # ensure the instance folder exists
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
+    
+    # A homepage
+    @app.route('/')
+    def home():
+        return render_template('index.html')
 
-    # Import and register blueprints
-    from .views.auth import auth
-    from .views.patient import patient
+    # import and register blueprints
+    from .views.auth import auth_bp
+    from .views.patient import patient_bp
 
-    app.register_blueprint(auth, url_prefix='/')
-    app.register_blueprint(patient, url_prefix='/patient/')
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(patient_bp)
 
     return app

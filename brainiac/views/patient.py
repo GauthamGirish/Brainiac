@@ -1,11 +1,10 @@
 from flask import Blueprint, render_template, url_for
 from database import db
 
-patient = Blueprint('patient', __name__,
-                    template_folder='../templates/patient')
+patient_bp = Blueprint('patient', __name__ , url_prefix='/patient')
 
 
-@patient.route('/dashboard')
+@patient_bp.route('/dashboard')
 def dashboard():
     patient_data = db.patients.find_one()
 

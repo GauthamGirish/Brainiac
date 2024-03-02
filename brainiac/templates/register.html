@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup Form</title>
+</head>
+<body>
+    <h1>Signup Form</h1>
+    <form action= "{{ url_for('auth.register') }}" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <label for="joke">Tell us a joke:</label>
+        <input type="text" id="joke" name="joke" required><br><br>
+        
+        <input type="submit" value="Signup">
+    </form>
+</body>
+</html>
