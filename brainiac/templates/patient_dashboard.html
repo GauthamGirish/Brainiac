@@ -1,9 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Dashboard</title>
 </head>
 <body>
-    <h1>Welcome to the Patient Dashboard</h1>
+
+    <center>
+        <h1>Welcome to Your Patient Dashboard</h1>
+        <h2>Logged in as {{patient.username}}</h2>
+    </center>
+
+    <!-- Display Patient Medical Details -->
+    <hr>
+    <div>
+        <h2>Your Medical Details:</h2>
+        <p><strong>Name:</strong> {{ patient.name }}</p>
+        <p><strong>Email:</strong> {{ patient.email }}</p>
+        <!-- Add more medical details as needed -->
+    </div>
+    <hr>
+
+    <!-- Upload MRI Scans Section -->
+    <div>
+        <h2>Upload MRI Scans:</h2>
+        {# <form action="{{ url_for('upload_mri') }}" method="post" enctype="multipart/form-data">  #}
+            <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" required><br>
+            <button type="button">Upload</button>
+        {# </form>  #}
+    </div>
+    <hr>
+
+    <!-- Display Case Images Section -->
+    <div>
+        <h1> case images </h1>
+        {% for image_path in image_paths %}
+            <img src="{{ image_path }}" alt="Case Image" width="300">
+        {% endfor %}
+    </div>
+
 </body>
 </html>
