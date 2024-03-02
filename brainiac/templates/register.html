@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Signup Form</h1>
-    <form action="/signup" method="POST">
+    <form action= "{{ url_for('auth.register') }}" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         

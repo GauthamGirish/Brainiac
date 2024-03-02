@@ -1,8 +1,8 @@
 from flask import Blueprint
 
-patient = Blueprint('patient', __name__)
+patient_bp = Blueprint('patient', __name__ , url_prefix='/patient')
 
 
-@patient.route('/dashboard')
+@patient_bp.route('/dashboard')
 def dashboard():
     return '<h1>Patient Dash</h1>'
