@@ -1,3 +1,4 @@
+<!-- templates/patient_dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,34 @@
     <title>Patient Dashboard</title>
 </head>
 <body>
-    <p>Welcome,  {{patient.name}}!</p>
-    <p>Email: {{patient.email}} </p>
 
-    <button type="button">Upload MRI Scans</button>
+    <h1>Welcome to Your Patient Dashboard</h1>
+    <h2>Logged in as {{patient.username}}
+
+    <!-- Display Patient Medical Details -->
+    <div>
+        <h2>Your Medical Details:</h2>
+        <p>Name: {{ patient.name }}</p>
+        <p>Email: {{ patient.email }}</p>
+        <!-- Add more medical details as needed -->
+    </div>
+
+    <!-- Upload MRI Scans Section -->
+    <div>
+        <h2>Upload MRI Scans:</h2>
+        {# <form action="{{ url_for('upload_mri') }}" method="post" enctype="multipart/form-data"> {% endcomment %}
+            <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" required>
+            <button type="button">Upload</button>
+        </form>  #}
+    </div>
+
+    <!-- Display Case Images Section -->
+    <div>
+        <h1> Case Images </h1>
+        {% for image_path in image_paths %}
+            <img src="{{ image_path }}" alt="Case Image">
+        {% endfor %}
+    </div>
+
 </body>
 </html>
