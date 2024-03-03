@@ -1,12 +1,10 @@
-from flask import Blueprint, render_template, url_for
-from db import db
+from flask import Blueprint, render_template, url_for, current_app
 
 patient_bp = Blueprint('patient', __name__ , url_prefix='/patient')
 
-
 @patient_bp.route('/dashboard')
 def dashboard():
-    patient_data = db.patients.find_one()
+    patient_data = current_app.db.patients.find_one()
 
     if patient_data is None:
         return "No patient found", 404

@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template
+from pymongo import MongoClient
 
 def create_app(test_config=None):
     # create and configure the app
@@ -33,7 +34,9 @@ def create_app(test_config=None):
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(patient_bp)
-    from . import db
-    db.init_app(app)
+    
+    #Database Connection
+    client = MongoClient(app.config['MONGO_URI'])
+    app.db = client.brainiac_db
 
     return app
