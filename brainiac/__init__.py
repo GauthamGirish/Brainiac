@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template
 from pymongo import MongoClient
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -22,7 +23,7 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-    
+
     # A homepage
     @app.route('/')
     def home():
@@ -30,12 +31,12 @@ def create_app(test_config=None):
 
     # import and register blueprints
     from .views.auth import auth_bp
-    from .views.patient import patient_bp
+    from .views.patient import patient
 
     app.register_blueprint(auth_bp)
-    app.register_blueprint(patient_bp)
-    
-    #Database Connection
+    app.register_blueprint(patient)
+
+    # Database Connection
     client = MongoClient(app.config['MONGO_URI'])
     app.db = client.brainiac_db
 
