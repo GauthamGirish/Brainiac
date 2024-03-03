@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Dashboard</title>
+    <title>Doctor Dashboard</title>
 </head>
 <body>
 
     <center>
-        <h1>Welcome to Your Patient Dashboard</h1>
-        <h2>Logged in as {{patient.user_id}}</h2>
+        <h1>Welcome to Your Doctor Dashboard</h1>
+        <h2>Logged in as {{doctor.user_id}}</h2>
     </center>
 
     <!-- Display Patient Medical Details -->
     <hr>
     <div>
         <h2>Your Medical Details:</h2>
-        <p><strong>Name:</strong> {{ patient.first_name }}</p>
-        <p><strong>Email:</strong> {{ <patient class="email_id"></patient> }}</p>
+        <p><strong>Name:</strong> {{ doctor.first_name }}</p>
+        <p><strong>Email:</strong> {{ doctor.email_id }}</p>
         <!-- Add more medical details as needed -->
     </div>
     <hr>
 
     <!-- Upload MRI Scans Section -->
-    <h2>Upload MRI Scans:</h2>
-    <form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data"> 
-        <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" multiple required><br>
-        <button type="submit">Upload</button>
-    </form>
-
+    <div>
+        <h2>Upload MRI Scans:</h2>
+        {# <form action="{{ url_for('upload_mri') }}" method="post" enctype="multipart/form-data">  #}
+            <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" required><br>
+            <button type="button">Upload</button>
+        {# </form>  #}
+    </div>
     <hr>
 
     <!-- Display Case Images Section -->
