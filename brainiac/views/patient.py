@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, current_app
+from flask import Blueprint, render_template, url_for, current_app, session
 
 patient_bp = Blueprint('patient', __name__ , url_prefix='/patient')
 
@@ -12,4 +12,4 @@ def dashboard():
     #Define the paths to your images
     image_paths = [url_for('static', filename='images/case-1.jpg'),
                    url_for('static', filename='images/case-2.png')]
-    return render_template('patient_dash.html', patient=patient_data, image_paths=image_paths)
+    return render_template('patient_dash.html', patient=patient_data, image_paths=image_paths , username= session['username'])
