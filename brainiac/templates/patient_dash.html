@@ -23,13 +23,12 @@
     <hr>
 
     <!-- Upload MRI Scans Section -->
-    <div>
-        <h2>Upload MRI Scans:</h2>
-        <form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data"> 
-            <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" required><br>
-            <button type="submit">Upload</button>
-        </form> 
-    </div>
+    <h2>Upload MRI Scans:</h2>
+    <form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data"> 
+        <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" multiple required><br>
+        <button type="submit">Upload</button>
+    </form>
+
     <hr>
 
     <!-- Display Case Images Section -->

@@ -22,14 +22,17 @@ def dashboard():
 def upload_image():
     if request.method == 'POST':
         if 'mri_scan' in request.files:
-            mri_scan = request.files['mri_scan']
-            mri_scan_in_memory = io.BytesIO()
-            mri_scan.save(mri_scan_in_memory)
-            mri_scan_in_memory.seek(0)
-            mri_scan_binary = Binary(mri_scan_in_memory.read())
+            mri_scans = request.files.getlist('mri_scan')
+            mri_scans_binary = []
+            for mri_scan in mri_scans:
+                mri_scan_in_memory = io.BytesIO()
+                mri_scan.save(mri_scan_in_memory)
+                mri_scan_in_memory.seek(0)
+                mri_scan_binary = Binary(mri_scan_in_memory.read())
+                mri_scans_binary.append(mri_scan_binary)
 
             current_app.db.cases.insert_one(
-                {'mri_scan': mri_scan_binary})
-            return "MRI scan uploaded and added to patient's case successfully!"
+                {'mri_scans': mri_scans_binary})
+            return "MRI scans uploaded and added to patient's case successfully!"
         else:
-            return "No MRI scan uploaded!", 400
+            return "No MRI scans uploaded!", 400
