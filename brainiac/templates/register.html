@@ -5,16 +5,39 @@
 </head>
 <body>
     <h1>Signup Form</h1>
+    <p>{{ message }}</p>
     <form action= "{{ url_for('auth.register') }}" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email_id" name="email_id" required><br><br>
         
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
-        
-        <label for="joke">Tell us a joke:</label>
-        <input type="text" id="joke" name="joke" required><br><br>
-        
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required><br><br>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone_number" name="phone_number" required><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="birthday" name="birthday" required><br><br>
+
+        <label for="gender">Gender:</label>
+        <input type="radio" id="gender_male" name="gender" value="male" required>
+        <label for="gender_male">Male</label>
+        <input type="radio" id="gender_female" name="gender" value="female" required>
+        <label for="gender_female">Female</label><br><br>
+
+        <label for="role">Role:</label>
+        <select id="role" name="role">
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+        </select><br><br>
+
         <input type="submit" value="Signup">
     </form>
 </body>
