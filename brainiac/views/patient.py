@@ -19,7 +19,7 @@ def dashboard():
     return render_template('patient_dash.html', patient=patient_data, image_paths=image_paths)
 
 
-@patient.route('/dashboard', methods=['POST'])
+@patient_bp.route('/dashboard', methods=['POST'])
 def upload_image():
     if request.method == 'POST':
         if 'mri_scan' in request.files:
