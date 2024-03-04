@@ -32,8 +32,10 @@ def upload_image():
                 mri_scan_binary = Binary(mri_scan_in_memory.read())
                 mri_scans_binary.append(mri_scan_binary)
 
+            patient_id = session['user_id']
             current_app.db.cases.insert_one(
-                {'mri_scans': mri_scans_binary})
+                {'patient_id': patient_id, 'mri_scans': mri_scans_binary})
+
             return "MRI scans uploaded and added to patient's case successfully!"
         else:
             return "No MRI scans uploaded!", 400
