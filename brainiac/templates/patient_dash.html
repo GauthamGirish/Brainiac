@@ -1,46 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Dashboard</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <center>
-        <h1>Welcome to Your Patient Dashboard</h1>
-        <h2>Logged in as {{patient.user_id}}</h2>
-    </center>
+{% block content %}
+<center>
+    <h1>Welcome to Your Patient Dashboard</h1>
+    <h2>Logged in as {{patient.user_id}}</h2>
+</center>
 
-    <!-- Display Patient Medical Details -->
-    <hr>
-    <div>
-        <h2>Your Medical Details:</h2>
-        <p><strong>First Name:</strong> {{ patient.first_name }}</p>
-        <p><strong>Last Name:</strong> {{ patient.last_name }}</p>
-        <p><strong>Gender:</strong> {{ patient.gender}}</p>
-        <p><strong>Phone:</strong> {{ patient.phone_number}}</p>
-        <p><strong>Birthday:</strong> {{ patient.birthday}}</p>
-        <p><strong>Email:</strong> {{ patient.email_id}}</p>
-    </div>
-    <hr>
+<!-- Display Patient Medical Details -->
+<hr>
+<div>
+    <h2>Your Medical Details:</h2>
+    <p><strong>First Name:</strong> {{ patient.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ patient.last_name }}</p>
+    <p><strong>Gender:</strong> {{ patient.gender}}</p>
+    <p><strong>Phone:</strong> {{ patient.phone_number}}</p>
+    <p><strong>Birthday:</strong> {{ patient.birthday}}</p>
+    <p><strong>Email:</strong> {{ patient.email_id}}</p>
+</div>
+<hr>
 
-    <!-- Upload MRI Scans Section -->
-    <h2>Upload MRI Scans:</h2>
-    <form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data"> 
-        <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" multiple required><br>
-        <button type="submit">Upload</button>
-    </form>
+<!-- Upload MRI Scans Section -->
+<h2>Upload MRI Scans:</h2>
+<form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data"> 
+    <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" multiple required><br>
+    <button type="submit">Upload</button>
+</form>
 
-    <hr>
+<hr>
 
-    <!-- Display Case Images Section -->
-    <div>
-        <h1> case images </h1>
-        {% for image_path in image_paths %}
-            <img src="{{ image_path }}" alt="Case Image" width="300">
-        {% endfor %}
-    </div>
-
-</body>
-</html>
+<!-- Display Case Images Section -->
+<div>
+    <h1> case images </h1>
+    {% for image_path in image_paths %}
+        <img src="{{ image_path }}" alt="Case Image" width="300">
+    {% endfor %}
+</div>
+{% endblock content %}
