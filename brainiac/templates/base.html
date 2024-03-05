@@ -23,25 +23,17 @@
     <nav>
         <div class="nav-wrapper">
 
-            <a href="#!" class="brand-logo">
-                <span class="material-symbols-outlined">
-                    neurology
-                </span>
-                Brainiac</a>
+            <a href="#!" class="brand-logo"> <span class="material-symbols-outlined"> neurology </span> Brainiac</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li class="active"><a href="patient_dash.html">Dashboard</a></li>
-                <li><a href="patient_dash.html">Dashboard</a></li>
+                {# <li class="{{ 'active' if request.path == url_for('index.html') else '' }}"><a
+                        href="{{ url_for('index.html') }}">Homepage</a></li> #}
+                <li class="{{ 'active' if request.path == url_for('patient.dashboard') else '' }}"><a
+                        href="{{ url_for('patient.dashboard') }}">Dashboard</a></li>
             </ul>
+
         </div>
     </nav>
-
-    <ul class="sidenav" id="mobile-demo">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
-    </ul>
 
 
     {% block content%}
