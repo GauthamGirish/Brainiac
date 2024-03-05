@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, current_app, request, session
+from flask import Blueprint, render_template, current_app, request, session, redirect, url_for
 
 patient_bp = Blueprint("patient", __name__, url_prefix="/patient")
 
@@ -65,4 +65,4 @@ def upload_image():
                 "$inc": {"case_number": 1}
             }
         )
-        return "<p>Uploaded: <br />{}</p>".format(scan_names)
+        return redirect(url_for('patient.dashboard'))
