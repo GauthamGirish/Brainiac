@@ -8,26 +8,40 @@ patient_bp = Blueprint("patient", __name__, url_prefix="/patient")
 
 @patient_bp.route("/dashboard")
 def dashboard():
+
     patient_data = current_app.db.patients.find_one(
-        {"user_id": session["user_id"]})
+        {'user_id': session['user_id']})
 
-    # list all the blobs in the container
-    blob_items = current_app.container_client.list_blobs()
-
-    img_html = ""
-
-    for blob in blob_items:
-        # get blob client to interact with the blob and get blob url
-        blob_client = current_app.container_client.get_blob_client(
-            blob=blob.name)
-        # get the blob url and append it to the html
-        # img_html += "<img src="{}" width="auto" height="200"/>".format( blob_client.url)
-        img_html += blob_client.url + " "
-    print("img_html: ", img_html)
     if patient_data is None:
         return "No patient found", 404
 
-    # Define the paths to your images
+    if "scans" in patient_data:
+        # Retrieve image URLs from the MongoDB document
+        print(patient_data['scans'])
+        return render_template('patient_dash.html', patient=patient_data, cases=patient_data['scans'])
+    else:
+        return render_template('patient_dash.html', patient=patient_data, image_urls=[])
+
+    # patient_data = current_app.db.patients.find_one(
+    #     {"user_id": session["user_id"]})
+
+    # # list all the blobs in the container
+    # blob_items = current_app.container_client.list_blobs()
+
+    # img_html = ""
+
+    # for blob in blob_items:
+    #     # get blob client to interact with the blob and get blob url
+    #     blob_client = current_app.container_client.get_blob_client(
+    #         blob=blob.name)
+    #     # get the blob url and append it to the html
+    #     # img_html += "<img src="{}" width="auto" height="200"/>".format( blob_client.url)
+    #     img_html += blob_client.url + " "
+    # print("img_html: ", img_html)
+    # if patient_data is None:
+    #     return "No patient found", 404
+
+    # # Define the paths to your images
     image_paths = [url_for("static", filename="images/case-1.jpg"),
                    url_for("static", filename="images/case-2.png")]
     return render_template("patient_dash.html", patient=patient_data, image_paths=image_paths)
@@ -77,8 +91,7 @@ def upload_image():
             {
                 "$set": {"scans." + case_name: img_urls},
                 "$inc": {"case_number": 1}
-            },
-            upsert=True
+            }
         )
 
         # current_app.db.patients.update_one(

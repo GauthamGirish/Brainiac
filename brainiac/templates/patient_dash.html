@@ -49,10 +49,21 @@
 <hr>
 
 <!-- Display Case Images Section -->
-<div>
+{# <div>
     <h1> case images </h1>
     {% for image_path in image_paths %}
     <img src="{{ image_path }}" alt="Case Image" height="300" width="300">
     {% endfor %}
+</div> #}
+
+<div>
+    <h1>Case Images</h1>
+    {% for case, urls in cases.items() %}
+    <p>{{ case }}: </p>
+    {% for url in urls %}
+    <img src="{{ url }}" alt="{{ case }} image">
+    {% endfor %}
+    {% endfor %}
+
 </div>
 {% endblock content %}
