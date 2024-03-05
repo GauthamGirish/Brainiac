@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block links %}
+<li class="{{ 'active' if request.path == url_for('patient.dashboard') else '' }}">
+    <a href="{{ url_for('patient.dashboard') }}">Dashboard</a>
+</li>
+<li ><a href="#">Logout</a></li>
+{% endblock links %}
+
 {% block content %}
 <center>
     <h1>Welcome to Your Patient Dashboard</h1>

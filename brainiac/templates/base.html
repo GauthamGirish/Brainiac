@@ -28,8 +28,10 @@
             <ul class="right hide-on-med-and-down">
                 {# <li class="{{ 'active' if request.path == url_for('index.html') else '' }}"><a
                         href="{{ url_for('index.html') }}">Homepage</a></li> #}
-                <li class="{{ 'active' if request.path == url_for('patient.dashboard') else '' }}"><a
-                        href="{{ url_for('patient.dashboard') }}">Dashboard</a></li>
+                {% block links %}
+                {# insert page-specific links here #}
+
+                {% endblock links %}
             </ul>
 
         </div>
