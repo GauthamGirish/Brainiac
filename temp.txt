@@ -1,0 +1,46 @@
+{
+  "patient_id": 8,
+  "scans": {
+    "set1709530880": [
+    {	
+      "$binary": {
+        "base64": "iVBORw0KGgoAAAA...",
+        "subType": "00"
+      }
+    },
+    {	
+      "$binary": {
+        "base64": "/9j/4AAQSkZJRg...",
+        "subType": "00"
+      }
+    },
+    {	
+      "$binary": {
+        "base64": "AAxMAAAMSCA...",
+        "subType": "00"
+      }
+    }
+    ],
+    "set1709530921": [
+    {	
+      "$binary": {
+        "base64": "iVBORw0KGgoAAAA...",
+        "subType": "00"
+      }
+    },
+    {	
+      "$binary": {
+        "base64": "/9j/4AAQSkZJRg...",
+        "subType": "00"
+      }
+    },
+    {	
+      "$binary": {
+        "base64": "AAxMAAAMSCA...",
+        "subType": "00"
+      }
+    }
+    ],
+
+  }
+}

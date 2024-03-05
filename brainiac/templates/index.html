@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome to Brainiac</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="center">
     <h1>Welcome to Brainiac!</h1>
     
     <p>Knock, knock.</p>
@@ -15,5 +13,7 @@
     
     <p>Register <a href="{{ url_for('auth.register') }}">here</a>.</p>
     <p>Login <a href="{{ url_for('auth.login') }}">here</a>.</p>
-</body>
-</html>
+
+</div>
+
+{% endblock content %}
