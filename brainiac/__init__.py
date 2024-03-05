@@ -60,7 +60,7 @@ def create_app(test_config=None):
             print("No container client")
         # get properties of the container to force exception to be thrown if container does not exist
         app.container_client.get_container_properties()
-        print("init: ", app.container_client.get_container_properties())
+        # print("init: ", app.container_client.get_container_properties())
     except Exception as e:
         # create a container in the storage account if it does not exist
         app.container_client = blob_service_client.create_container(
