@@ -1,34 +1,47 @@
 {% extends "base.html" %}
 
 {% block links %}
-<li class="{{ 'active' if request.path == url_for('patient.dashboard') else '' }}">
+{# <li class="{{ 'active' if request.path == url_for('patient.dashboard') else '' }}">
     <a href="{{ url_for('patient.dashboard') }}">Dashboard</a>
-</li>
-<li ><a href="#">Logout</a></li>
+</li> #}
+<span>Logged in as {{patient.user_id}}</span>
+<li><a href="#">Logout</a></li>
 {% endblock links %}
 
 {% block content %}
 <center>
     <h1>Welcome to Your Patient Dashboard</h1>
-    <h2>Logged in as {{patient.user_id}}</h2>
+
 </center>
 
 <!-- Display Patient Medical Details -->
 <hr>
 <div>
     <h2>Your Medical Details:</h2>
-    <p><strong>First Name:</strong> {{ patient.first_name }}</p>
-    <p><strong>Last Name:</strong> {{ patient.last_name }}</p>
-    <p><strong>Gender:</strong> {{ patient.gender}}</p>
-    <p><strong>Phone:</strong> {{ patient.phone_number}}</p>
-    <p><strong>Birthday:</strong> {{ patient.birthday}}</p>
-    <p><strong>Email:</strong> {{ patient.email_id}}</p>
+    <p>
+        <bold>First Name:</bold> {{ patient.first_name }}
+    </p>
+    <p>
+        <bold>Last Name:</bold> {{ patient.last_name }}
+    </p>
+    <p>
+        <bold>Gender:</bold> {{ patient.gender}}
+    </p>
+    <p>
+        <bold>Phone:</bold> {{ patient.phone_number}}
+    </p>
+    <p>
+        <bold>Birthday:</bold> {{ patient.birthday}}
+    </p>
+    <p>
+        <bold>Email:</bold> {{ patient.email_id}}
+    </p>
 </div>
 <hr>
 
 <!-- Upload MRI Scans Section -->
 <h2>Upload MRI Scans:</h2>
-<form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data"> 
+<form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data">
     <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" multiple required><br>
     <button type="submit">Upload</button>
 </form>
@@ -39,7 +52,7 @@
 <div>
     <h1> case images </h1>
     {% for image_path in image_paths %}
-        <img src="{{ image_path }}" alt="Case Image" width="300">
+    <img src="{{ image_path }}" alt="Case Image" height="300" width="300">
     {% endfor %}
 </div>
 {% endblock content %}
