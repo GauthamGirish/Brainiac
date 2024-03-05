@@ -42,7 +42,7 @@
 <!-- Upload MRI Scans Section -->
 <h2>Upload MRI Scans:</h2>
 <form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data">
-    <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" multiple required><br>
+    <input type="file" name="scans" accept=".jpg, .jpeg, .png" multiple required><br>
     <button type="submit">Upload</button>
 </form>
 
