@@ -3,13 +3,13 @@ import io
 from flask import Blueprint, render_template, url_for, current_app, request, session
 import time
 
-patient_bp = Blueprint('patient', __name__, url_prefix='/patient')
+patient_bp = Blueprint("patient", __name__, url_prefix="/patient")
 
 
-@patient_bp.route('/dashboard')
+@patient_bp.route("/dashboard")
 def dashboard():
     patient_data = current_app.db.patients.find_one(
-        {'user_id': session['user_id']})
+        {"user_id": session["user_id"]})
 
     # list all the blobs in the container
     blob_items = current_app.container_client.list_blobs()
@@ -21,57 +21,72 @@ def dashboard():
         blob_client = current_app.container_client.get_blob_client(
             blob=blob.name)
         # get the blob url and append it to the html
-        # img_html += "<img src='{}' width='auto' height='200'/>".format( blob_client.url)
+        # img_html += "<img src="{}" width="auto" height="200"/>".format( blob_client.url)
         img_html += blob_client.url + " "
     print("img_html: ", img_html)
     if patient_data is None:
         return "No patient found", 404
 
     # Define the paths to your images
-    image_paths = [url_for('static', filename='images/case-1.jpg'),
-                   url_for('static', filename='images/case-2.png')]
-    return render_template('patient_dash.html', patient=patient_data, image_paths=image_paths)
+    image_paths = [url_for("static", filename="images/case-1.jpg"),
+                   url_for("static", filename="images/case-2.png")]
+    return render_template("patient_dash.html", patient=patient_data, image_paths=image_paths)
 
 
-@patient_bp.route('/dashboard', methods=['POST'])
+@patient_bp.route("/dashboard", methods=["POST"])
 def upload_image():
-    if request.method == 'POST':
-        filenames = ""
+    if request.method == "POST":
+        scan_names = []
+        img_count = 1
+        img_urls = []
+        patient_id = session["user_id"]
+        patient_data = current_app.db.patients.find_one(
+            {"user_id": session["user_id"]})
 
-        for file in request.files.getlist("scans"):
+        case_count = 1
+        # check if case number exists
+        if "case_number" in patient_data:
+            case_count = patient_data["case_number"] + 1
+
+        # update azure
+        for scan in request.files.getlist("scans"):
             try:
-                # upload the file to the container using the filename as the blob name
-                if current_app.container_client is None:
-                    print("bruh")
+                # rename file
+                new_scan_name = "patient" + \
+                    str(patient_id) + "_" + "case" + \
+                    str(case_count) + "_" + "img" + str(img_count)
+                img_count += 1
+                print(new_scan_name)
+                scan_names.append(new_scan_name)
 
-                # print(current_app.container_client.get_container_properties())
-                current_app.container_client.upload_blob(file.filename, file)
-
-                filenames += file.filename + "<br /> "
+                # upload image and get url
+                blob_client = current_app.container_client.get_blob_client(
+                    new_scan_name)
+                current_app.container_client.upload_blob(new_scan_name, scan)
+                img_urls.append(blob_client.url)
+                # filenames += scan.filename + " " + new_scan_name + "<br /> "
             except Exception as e:
                 print(e)
                 # ignore duplicate filenames
                 print("Ignoring duplicate filenames")
 
-        return "<p>Uploaded: <br />{}</p>".format(filenames)
-        # if 'scans' in request.files:
-        #     # scan_images = request.files.getlist('scans')
-        #     # scan_names = []
+        # update mongodb
+        case_name = "case" + str(case_count)
+        current_app.db.patients.update_one(
+            {"user_id": patient_id},
+            {
+                "$set": {"scans." + case_name: img_urls},
+                "$inc": {"case_number": 1}
+            },
+            upsert=True
+        )
 
-        #     filenames = ""
+        # current_app.db.patients.update_one(
+        #     {"patient_id": patient_id},
+        #     {"$set": {"scans." + case_name: scan_names}},
+        #     upsert=True)
 
-        #     for file in request.files.getlist("scans"):
-        #         try:
-        #             # upload the file to the container using the filename as the blob name
-        #             current_app.container_client.upload_blob(
-        #                 file.filename, file)
-        #             filenames += file.filename + "<br /> "
-        #         except Exception as e:
-        #             print(e)
-        #             # ignore duplicate filenames
-        #             print("Ignoring duplicate filenames")
-
-        #     return "<p>Uploaded: <br />{}</p>".format(filenames)
+        return "<p>Uploaded: <br />{}</p>".format(scan_names)
 
         # for file in request.files.getlist("scans"):
         #     try:
@@ -84,13 +99,13 @@ def upload_image():
         #         # ignore duplicate filenames
         #         print("Ignoring duplicate filenames")
 
-        # patient_id = session['user_id']
+        # patient_id = session["user_id"]
         # case_name = "case"
         # current_app.db.patients.update_one(
-        #     {'patient_id': patient_id},
+        #     {"patient_id": patient_id},
         #     {"$set": {"scans." + case_name: scan_names}},
         #     upsert=True)
 
-        #     return "MRI scans uploaded and added to patient's case successfully!"
+        #     return "MRI scans uploaded and added to patient"s case successfully!"
         # else:
         #     return "No MRI scans uploaded!", 400
