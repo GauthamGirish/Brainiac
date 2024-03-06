@@ -1,44 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Dashboard</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <center>
-        <h1>Welcome to Your Doctor Dashboard</h1>
-        <h2>Logged in as {{doctor.user_id}}</h2>
-    </center>
+{% block links %}
+{# <li class="{{ 'active' if request.path == url_for('doctor.dashboard') else '' }}">
+    <a href="{{ url_for('doctor.dashboard') }}">Dashboard</a>
+</li> #}
+<span>Logged in as {{doctor.user_id}}</span>
+<li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+{% endblock links %}
 
-    <!-- Display Patient Medical Details -->
-    <hr>
-    <div>
-        <h2>Your Medical Details:</h2>
-        <p><strong>Name:</strong> {{ doctor.first_name }}</p>
-        <p><strong>Email:</strong> {{ doctor.email_id }}</p>
-        <!-- Add more medical details as needed -->
-    </div>
-    <hr>
+{% block content %}
+<center>
+    <h1>Welcome to Your Doctor Dashboard</h1>
 
-    <!-- Upload MRI Scans Section -->
-    <div>
-        <h2>Upload MRI Scans:</h2>
-        {# <form action="{{ url_for('upload_mri') }}" method="post" enctype="multipart/form-data">  #}
-            <input type="file" name="mri_scan" accept=".jpg, .jpeg, .png" required><br>
-            <button type="button">Upload</button>
-        {# </form>  #}
-    </div>
-    <hr>
+</center>
 
-    <!-- Display Case Images Section -->
-    <div>
-        <h1> case images </h1>
-        {% for image_path in image_paths %}
-            <img src="{{ image_path }}" alt="Case Image" width="300">
-        {% endfor %}
-    </div>
+<!-- Display  doctor Details -->
+<hr>
+<div>
+    <h2>Your Medical Details:</h2>
+    <p>
+        <bold>First Name:</bold> {{ doctor.first_name }}
+    </p>
+    <p>
+        <bold>Last Name:</bold> {{ doctor.last_name }}
+    </p>
+    <p>
+        <bold>Gender:</bold> {{ doctor.gender}}
+    </p>
+    <p>
+        <bold>Phone:</bold> {{ doctor.phone_number}}
+    </p>
+    <p>
+        <bold>Birthday:</bold> {{ doctor.birthday}}
+    </p>
+    <p>
+        <bold>Email:</bold> {{ doctor.email_id}}
+    </p>
+</div>
+<hr>
 
-</body>
-</html>
+<!-- Display Case Images Section -->
+
+
+<div>
+    <h1>Case Images</h1>
+    {% if cases %}
+    {% for case, urls in cases.items() %}
+    <p>{{ case }}: </p>
+    {% for url in urls %}
+    <img src="{{ url }}" alt="{{ url }} image" height="150" width="150">
+    {% endfor %}
+    {% endfor %}
+    {% endif%}
+
+</div>
+{% endblock content %}

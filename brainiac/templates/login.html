@@ -1,19 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <h2>Login</h2>
-    <form action="{{ url_for('auth.login') }}" method="POST">
+{% extends "base.html" %}
 
-        <label for="email">Email:</label>
-        <input type="email" id="email_id" name="email_id" required><br><br>
-                
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <input type="submit" value="Login">
-    </form>
-</body>
-</html>
+{% block links %}
+<li> <a href="{{ url_for('auth.register') }}">Register</a> </li>
+<li><a href="{{ url_for('auth.login')}}">Login</a></li>
+{% endblock links %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="card blue lighten-4">
+                <div class="card-content black-text">
+                    <span class="card-title center">Login</span>
+                    <form action="{{ url_for('auth.login') }}" method="POST">
+
+                        <div class="input-field">
+                            <input type="email" id="email_id" name="email_id" class="validate" required>
+                            <label for="email_id">Email</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input type="password" id="password" name="password" class="validate" required>
+                            <label for="password">Password</label>
+                        </div>
+
+                        <div class="card-action center">
+                            <button type="submit" class="waves-effect waves-light btn">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

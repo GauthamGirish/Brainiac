@@ -6,11 +6,10 @@ patient_bp = Blueprint("patient", __name__, url_prefix="/patient")
 @patient_bp.route("/dashboard")
 def dashboard():
 
-    patient_data = current_app.db.patients.find_one(
-        {'user_id': session['user_id']})
+    patient_data = current_app.db.patients.find_one({'user_id': session['user_id']})
 
     if patient_data is None:
-        return "No patient found", 404
+        return redirect(url_for("auth.login"))
 
     if "scans" in patient_data:
         # Retrieve image URLs from the MongoDB document

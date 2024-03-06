@@ -5,7 +5,7 @@
     <a href="{{ url_for('patient.dashboard') }}">Dashboard</a>
 </li> #}
 <span>Logged in as {{patient.user_id}}</span>
-<li><a href="#">Logout</a></li>
+<li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
 {% endblock links %}
 
 {% block content %}

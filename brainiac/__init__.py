@@ -43,27 +43,14 @@ def create_app(test_config=None):
     # client = MongoClient()
     client = MongoClient(app.config['MONGO_URI'])
     app.db = client.brainiac_db
-
-    # image
+    
+    # Azure Blob Storage Connection
 
     connect_str = app.config['AZURE_CONTAINER_KEY']
     container_name = "mriscans"
-
+    
     # create a blob service client to interact with the storage account
-    blob_service_client = BlobServiceClient.from_connection_string(
-        conn_str=connect_str)
-    try:
-        # get container client to interact with the container in which images will be stored
-        app.container_client = blob_service_client.get_container_client(
-            container=container_name)
-        if app.container_client is None:
-            print("No container client")
-        # get properties of the container to force exception to be thrown if container does not exist
-        app.container_client.get_container_properties()
-        # print("init: ", app.container_client.get_container_properties())
-    except Exception as e:
-        # create a container in the storage account if it does not exist
-        app.container_client = blob_service_client.create_container(
-            container_name)
-
+    blob_service_client = BlobServiceClient.from_connection_string(conn_str=connect_str)
+    app.container_client = blob_service_client.get_container_client(container=container_name)
+    
     return app

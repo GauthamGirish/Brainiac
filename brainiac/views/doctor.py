@@ -1,18 +1,25 @@
 #I've just added some boilerplate code to check if the redirects are working properly
 
-from flask import Blueprint, render_template, url_for, current_app, session
+from flask import Blueprint, render_template, url_for, current_app, session, redirect
 
 doctor_bp = Blueprint('doctor', __name__ , url_prefix='/doctor')
 
 @doctor_bp.route('/dashboard')
 def dashboard():
     doctor_data = current_app.db.doctors.find_one({'user_id': session['user_id']})
-    print(session['user_id'])
 
     if doctor_data is None:
-        return "No doctor found", 404
+        return redirect(url_for('auth.login'))
 
-    #Define the paths to your images
-    image_paths = [url_for('static', filename='images/case-1.jpg'),
-                   url_for('static', filename='images/case-2.png')]
-    return render_template('doctor_dash.html', doctor=doctor_data, image_paths=image_paths)
+    image_urls = {}
+
+    if "cases" in doctor_data:
+        for case in doctor_data["cases"]:
+            patient_ID, case_number = case
+            patient_data = current_app.db.patients.find_one({'user_ID': patient_ID})
+            image_urls[str(patient_ID)] = patient_data.scans['case' + str(case_number)]
+    #just a fallback image for now - G
+    else:
+        image_urls["Agent J"] = ['https://brainiac02.blob.core.windows.net/mriscans/WhatsApp Image 2023-03-23 at 7.12.19 PM.jpeg']
+    
+    return render_template('doctor_dash.html', doctor=doctor_data, cases=image_urls)
