@@ -10,3 +10,5 @@ def process_case(patient_data, case_name, img_urls):
     prediction = "random prediction"
     accuracy = random.choice([25, 50, 75])
     
+    #update the patient data
+    
