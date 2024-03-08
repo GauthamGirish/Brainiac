@@ -30,10 +30,6 @@ def create_app(test_config=None):
     def home():
         return render_template('index.html')
 
-    @app.route('/test')
-    def test():
-        return render_template('test.html')
-
     # import and register blueprints
     from .views.auth import auth_bp
     from .views.patient import patient_bp
