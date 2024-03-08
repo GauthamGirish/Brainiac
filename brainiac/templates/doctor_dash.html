@@ -11,7 +11,7 @@
 {% endblock dashboard %}
 
 {% block links %}
-<span>Logged in as {{doctor.user_id}}</span>
+<span>Logged in as {{doctor.first_name}} {{doctor.last_name}}</span>
 <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
 {% endblock links %}
 

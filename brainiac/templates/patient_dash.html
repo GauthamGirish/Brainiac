@@ -10,7 +10,7 @@
 
 
 {% block links %}
-<span>Logged in as {{patient.user_id}}</span>
+<span>Logged in as {{patient.first_name}} {{patient.last_name}}</span>
 <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
 {% endblock links %}
 
