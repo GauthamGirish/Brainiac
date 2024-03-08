@@ -3,7 +3,7 @@
 {% block title %}Homepage{% endblock title %}
 
 {% block links %}
-<li> <a href="{{ url_for('auth.register') }}">Register</a> </li>
+<li><a href="{{ url_for('auth.register') }}">Register</a> </li>
 <li><a href="{{ url_for('auth.login')}}">Login</a></li>
 {% endblock links %}
 
@@ -12,17 +12,14 @@
     <div class="section no-pad-bot">
         <div class="container">
             <br /><br />
-            <h1 class="header center teal-text text-lighten-2">
-                Parallax Template
-            </h1>
+            <h1 class="header center teal-text text-lighten-3">Brainiac: Brain Tumor Diagnosis</h1>
             <div class="row center">
-                <h5 class="header col s12 light">
-                    A modern responsive front-end framework based on
-                    Material Design
-                </h5>
+                <h5 class="header col s12 light white-text">A state-of-the-art platform utilizing a hybrid deep learning
+                    model to
+                    revolutionize the diagnosis and case management of brain tumors.</h5>
             </div>
             <div class="row center">
-                <a href="http://materializecss.com/getting-started.html" id="download-button"
+                <a href="{{url_for('auth.register')}}" id="download-button"
                     class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
             </div>
             <br /><br />
@@ -39,54 +36,41 @@
         <div class="row">
             <div class="col s12 m4">
                 <div class="icon-block">
-                    <h2 class="center brown-text">
-                        <i class="material-icons">flash_on</i>
+                    <h2 class="center teal-text text-darken-4 ">
+                        <i class="material-icons" style="font-size: 44px;">flash_on</i>
                     </h2>
-                    <h5 class="center">Speeds up development</h5>
+                    <h5 class="center">Revolutionizing Diagnosis</h5>
 
-                    <p class="light">
-                        We did most of the heavy lifting for you to
-                        provide a default stylings that incorporate our
-                        custom components. Additionally, we refined
-                        animations and transitions to provide a smoother
-                        experience for developers.
-                    </p>
+                    <p class="light">Brainiac utilizes a hybrid deep learning model to revolutionize the diagnosis and
+                        case management of brain tumors. Our AI-driven model scrutinizes MRI scans to predict potential
+                        diagnoses with varying degrees of confidence.</p>
                 </div>
             </div>
 
             <div class="col s12 m4">
                 <div class="icon-block">
-                    <h2 class="center brown-text">
-                        <i class="material-icons">group</i>
+                    <h2 class="center teal-text text-darken-4">
+                        <i class="material-icons" style="font-size: 44px;">group</i>
                     </h2>
-                    <h5 class="center">User Experience Focused</h5>
-
-                    <p class="light">
-                        By utilizing elements and principles of Material
-                        Design, we were able to create a framework that
-                        incorporates components and animations that
-                        provide more feedback to users. Additionally, a
-                        single underlying responsive system across all
-                        platforms allow for a more unified user
-                        experience.
-                    </p>
+                    <h5 class="center">Optimized Resource Allocation</h5>
+                    <p class="light">Brainiac employs an intelligent Doctor Allocation Algorithm, designed to route
+                        cases to medical professionals based on the complexity indicated by the model’s confidence
+                        level. This ensures an optimal utilization of expertise and resources within the healthcare
+                        system.</p>
                 </div>
             </div>
 
             <div class="col s12 m4">
                 <div class="icon-block">
-                    <h2 class="center brown-text">
-                        <i class="material-icons">settings</i>
+                    <h2 class="center teal-text text-darken-4">
+                        <i class="material-icons" style="font-size: 44px;">settings</i>
                     </h2>
-                    <h5 class="center">Easy to work with</h5>
+                    <h5 class="center">User-Friendly Interface</h5>
 
-                    <p class="light">
-                        We have provided detailed documentation as well
-                        as specific code examples to help new users get
-                        started. We are also always open to feedback and
-                        can answer any questions a user may have about
-                        Materialize.
-                    </p>
+                    <p class="light">Both patients and doctors have access to the diagnosis and treatment plans via a
+                        user-friendly web portal. For doctors, this portal also functions as a validation and treatment
+                        planning tool, allowing them to review the AI's predictions, make informed decisions, and
+                        outline treatment strategies.</p>
                 </div>
             </div>
         </div>
@@ -97,7 +81,7 @@
     <div class="section no-pad-bot">
         <div class="container">
             <div class="row center">
-                <h5 class="header col s12 light">
+                <h5 class="headerlight white-text">
                     A modern responsive front-end framework based on
                     Material Design
                 </h5>
@@ -113,7 +97,7 @@
     <div class="section">
         <div class="row">
             <div class="col s12 center">
-                <h3><i class="mdi-content-send brown-text"></i></h3>
+                <h3><i class="mdi-content-send teal-text"></i></h3>
                 <h4>Contact Us</h4>
                 <p class="left-align light">
                     Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -139,7 +123,7 @@
     <div class="section no-pad-bot">
         <div class="container">
             <div class="row center">
-                <h5 class="header col s12 light">
+                <h5 class="header col s12 light white-text">
                     A modern responsive front-end framework based on
                     Material Design
                 </h5>
