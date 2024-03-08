@@ -5,7 +5,9 @@ patient_bp = Blueprint("patient", __name__, url_prefix="/patient")
 
 @patient_bp.route("/dashboard")
 def dashboard():
-
+    if session.get('user_id', default=None) is None:
+        return redirect(url_for("auth.login"))
+    
     patient_data = current_app.db.patients.find_one({'user_id': session['user_id']})
 
     if patient_data is None:

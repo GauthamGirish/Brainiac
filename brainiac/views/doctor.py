@@ -6,6 +6,9 @@ doctor_bp = Blueprint('doctor', __name__ , url_prefix='/doctor')
 
 @doctor_bp.route('/dashboard')
 def dashboard():
+    if session.get('user_id', default=None) is None:
+        return redirect(url_for("auth.login"))
+    
     doctor_data = current_app.db.doctors.find_one({'user_id': session['user_id']})
 
     if doctor_data is None:
@@ -26,8 +29,8 @@ def dashboard():
 
 @doctor_bp.route('/view_case/<int:patient_id>/<int:case_number>')
 def view_case(patient_id, case_number):
-    #print(type(patient_id), type(case_number))
-    #return redirect(url_for('doctor.dashboard'))
+    if session.get('user_id', default=None) is None:
+        return redirect(url_for("auth.login"))
     patient_data = current_app.db.patients.find_one({'user_id': patient_id})
     image_urls = patient_data["scans"]['case' + str(case_number)]
     return render_template('case.html', patient_data=patient_data, case_number=case_number,
