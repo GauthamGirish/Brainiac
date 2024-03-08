@@ -52,5 +52,5 @@ def create_app(test_config=None):
     # create a blob service client to interact with the storage account
     blob_service_client = BlobServiceClient.from_connection_string(conn_str=connect_str)
     app.container_client = blob_service_client.get_container_client(container=container_name)
-    
+
     return app

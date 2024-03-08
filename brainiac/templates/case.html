@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block links %}
+    <li><a href="{{ url_for('doctor.dashboard') }}">Dashboard</a></li>
+    <span>Logged in as {{user_id}}</span>
+    <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+{% endblock links %}
+
+{% block content %}
+
+<h1>Patient Information</h1>
+<div class="patient-info">
+    <div>
+        <label>Email ID:</label>
+        <span>{{ patient_data['email_id'] }}</span>
+    </div>
+    <div>
+        <label>First Name:</label>
+        <span>{{ patient_data['first_name'] }}</span>
+    </div>
+    <div>
+        <label>Last Name:</label>
+        <span>{{ patient_data['last_name'] }}</span>
+    </div>
+    <div>
+        <label>Phone Number:</label>
+        <span>{{ patient_data['phone_number'] }}</span>
+    </div>
+    <div>
+        <label>Birthday:</label>
+        <span>{{ patient_data['birthday'] }}</span>
+    </div>
+    <div>
+        <label>Gender:</label>
+        <span>{{ patient_data['gender'] }}</span>
+    </div>
+</div>
+
+<h1>Patient Case {{ case_number }}</h1>
+    {% if image_urls %}
+        <div>
+            <h2>Case Images</h2>
+            {% for url in image_urls %}
+                <img src="{{ url }}" alt="Case image" style="margin: 10px; height: 200px; width: auto;">
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No images available for this case.</p>
+    {% endif %}
+{% endblock content %}
