@@ -1,6 +1,10 @@
 import random
+from flask import current_app
 
-def new_case(patient_data, case_name, img_urls):
+celery = current_app.celery
+
+@celery.task(name="process_case")
+def process_case(patient_data, case_name, img_urls):
     
     #pass the images into the model here
     prediction = "random prediction"
