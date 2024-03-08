@@ -76,5 +76,48 @@
 </div>
 </div>
 
+{# Brainiac's Diagnosis #}
+
+<div class="card horizontal" style="margin: 0 15%;">
+    <div class="card-stacked">
+        <div class="card-content" style="text-align: left;">
+            <h2 style=" margin-top: 0;">Brainiac's Diagnosis</h2>
+            <div id="diagnosis-info">
+                <p>
+                    Diagnosis: Cancer
+                </p>
+                <p>
+                    Accuracy: 100%
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Treatment plan #}
+<div class="card horizontal" style="margin: 1%  15%;">
+    <div class="card-stacked">
+        <div class="card-content" style="text-align: left;">
+            <h2 style=" margin-top: 0;">Treatment Plan</h2>
+            <div id="details">
+                <p>
+                    Treatment Plan: Stop sharing cigarettes
+                </p>
+                <button class="btn waves-effect waves-light" id="editButton">Edit</button>
+            </div>
+
+            <form id="editForm" style="display: none;" method="POST" action="">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea name="treatment" id="treatement" cols="30" rows="10"
+                            class="materialize-textarea"></textarea>
+                        <label for="treatment">Treatment Plan:</label>
+                        <button type="button" class="btn waves-effect waves-light">Submit Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
