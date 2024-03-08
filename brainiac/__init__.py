@@ -2,14 +2,16 @@ import os
 from flask import Flask, render_template
 from pymongo import MongoClient
 from azure.storage.blob import BlobServiceClient
-
+from celery import Celery
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        DATABASE='mongodb://localhost:27017/brainiac',
+        CELERY_BROKER_URL='redis://localhost:6379/0',
+        CELERY_RESULT_BACKEND='redis://localhost:6379/0'
     )
 
     if test_config is None:
@@ -45,7 +47,6 @@ def create_app(test_config=None):
     app.db = client.brainiac_db
 
     # Azure Blob Storage Connection
-
     connect_str = app.config['AZURE_CONTAINER_KEY']
     container_name = "mriscans"
 
@@ -53,5 +54,24 @@ def create_app(test_config=None):
     blob_service_client = BlobServiceClient.from_connection_string(conn_str=connect_str)
     app.container_client = blob_service_client.get_container_client(container=container_name)
 
+    # Celery
+    celery = make_celery(app)
+    app.celery = celery
+
     return app
 
+def make_celery(app):
+    celery = Celery(
+        app.import_name,
+        backend=app.config['CELERY_RESULT_BACKEND'],
+        broker=app.config['CELERY_BROKER_URL']
+    )
+    celery.conf.update(app.config)
+    
+    class ContextTask(celery.Task):
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return self.run(*args, **kwargs)
+                
+    celery.Task = ContextTask
+    return celery
