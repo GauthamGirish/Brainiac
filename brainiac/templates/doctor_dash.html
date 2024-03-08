@@ -30,7 +30,7 @@
     </div>
 
     <!-- Hidden form for editing details -->
-    <form id="editForm" style="display: none;" method="POST" action="/update_doctor_details">
+    <form id="editForm" style="display: none;" method="POST" action="{{ url_for('doctor.edit') }}">
         <input type="text" name="first_name" value="{{ doctor.first_name }}" placeholder="First Name">
         <input type="text" name="last_name" value="{{ doctor.last_name }}" placeholder="Last Name">
         <input type="text" name="gender" value="{{ doctor.gender }}" placeholder="Gender">

@@ -1,6 +1,6 @@
 #I've just added some boilerplate code to check if the redirects are working properly
 
-from flask import Blueprint, render_template, url_for, current_app, session, redirect
+from flask import Blueprint, render_template, url_for, current_app, session, redirect, request
 
 doctor_bp = Blueprint('doctor', __name__ , url_prefix='/doctor')
 
@@ -35,3 +35,31 @@ def view_case(patient_id, case_number):
     image_urls = patient_data["scans"]['case' + str(case_number)]
     return render_template('case.html', patient_data=patient_data, case_number=case_number,
                            image_urls=image_urls, user_id=session['user_id'])
+
+@doctor_bp.route('/edit-details', methods = ['POST'])
+def edit():
+    if session.get('user_id', default=None) is None:
+        return redirect(url_for("auth.login"))
+
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    gender = request.form.get('gender')
+    email = request.form.get('email')
+    phone_number = request.form.get('phone_number')
+    address = request.form.get('address')
+    birthday = request.form.get('birthday')
+    current_app.db.doctors.update_one(
+        {"user_id": session['user_id']},
+        {
+            "$set": {
+                "first_name": first_name,
+                "last_name": last_name,
+                "email": email,
+                "phone_number": phone_number,
+                "address": address,
+                "gender": gender,
+                "birthday": birthday
+            },
+        }
+    )
+    return redirect(url_for('doctor.dashboard'))
