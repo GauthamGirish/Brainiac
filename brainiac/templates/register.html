@@ -17,7 +17,6 @@
                     <span class="card-title center">Signup Form</span>
                     <p class="center">{{ message }}</p>
                     <form action="{{ url_for('auth.register') }}" method="POST">
-
                         <div class="input-field">
                             <input type="email" id="email_id" name="email_id" class="validate" required>
                             <label for="email_id">Email</label>
@@ -76,5 +75,3 @@
     </div>
 </div>
 {% endblock content %}
-
-
