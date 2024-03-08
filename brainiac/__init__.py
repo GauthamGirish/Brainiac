@@ -28,7 +28,7 @@ def create_app(test_config=None):
     # A homepage
     @app.route('/')
     def home():
-        return render_template('index_temp.html')
+        return render_template('index.html')
 
     # import and register blueprints
     from .views.auth import auth_bp
