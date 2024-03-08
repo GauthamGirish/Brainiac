@@ -84,6 +84,12 @@
             var instances = M.FormSelect.init(elems, {});
         });
     </script>
+    <script>
+        document.getElementById('editButton').onclick = function() {
+            document.getElementById('doctorDetails').style.display = 'none';
+            document.getElementById('editForm').style.display = 'block';
+        };
+    </script>
 </body>
 
 </html>
