@@ -14,8 +14,6 @@ def dashboard():
         return redirect(url_for("auth.login"))
 
     if "scans" in patient_data:
-        # Retrieve image URLs from the MongoDB document
-        print(patient_data['scans'])
         return render_template('patient_dash.html', patient=patient_data, cases=patient_data['scans'])
     else:
         return render_template('patient_dash.html', patient=patient_data, cases={})
