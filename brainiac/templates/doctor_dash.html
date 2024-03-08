@@ -2,10 +2,15 @@
 
 {% block title %}Doctor Dashboard{% endblock title %}
 
-{% block links %}
-{# <li class="{{ 'active' if request.path == url_for('doctor.dashboard') else '' }}">
+
+
+{% block dashboard %}
+<li class="{{ 'active' if request.path == url_for('doctor.dashboard') else '' }}">
     <a href="{{ url_for('doctor.dashboard') }}">Dashboard</a>
-</li> #}
+</li>
+{% endblock dashboard %}
+
+{% block links %}
 <span>Logged in as {{doctor.user_id}}</span>
 <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
 {% endblock links %}

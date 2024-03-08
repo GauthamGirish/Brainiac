@@ -30,6 +30,10 @@ def create_app(test_config=None):
     def home():
         return render_template('index.html')
 
+    @app.route('/test')
+    def test():
+        return render_template('test.html')
+
     # import and register blueprints
     from .views.auth import auth_bp
     from .views.patient import patient_bp
@@ -43,12 +47,12 @@ def create_app(test_config=None):
     # client = MongoClient()
     client = MongoClient(app.config['MONGO_URI'])
     app.db = client.brainiac_db
-    
+
     # Azure Blob Storage Connection
 
     connect_str = app.config['AZURE_CONTAINER_KEY']
     container_name = "mriscans"
-    
+
     # create a blob service client to interact with the storage account
     blob_service_client = BlobServiceClient.from_connection_string(conn_str=connect_str)
     app.container_client = blob_service_client.get_container_client(container=container_name)

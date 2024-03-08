@@ -2,13 +2,19 @@
 
 {% block title %}Patient Dashboard{% endblock title %}
 
-{% block links %}
-{# <li class="{{ 'active' if request.path == url_for('patient.dashboard') else '' }}">
+{% block dashboard %}
+<li class="{{ 'active' if request.path == url_for('patient.dashboard') else '' }}">
     <a href="{{ url_for('patient.dashboard') }}">Dashboard</a>
-</li> #}
+</li>
+{% endblock dashboard %}
+
+
+{% block links %}
 <span>Logged in as {{patient.user_id}}</span>
 <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
 {% endblock links %}
+
+
 
 {% block content %}
 <center>

@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 
+{% block title %}Patient {{patient_data['user_id']}}, Case {{case_number}}{% endblock title %}
+
+{% block dashboard %}
+<li class="{{ 'active' if request.path == url_for('doctor.dashboard') else '' }}">
+    <a href="{{ url_for('doctor.dashboard') }}">Dashboard</a>
+</li>
+{% endblock dashboard %}
+
 {% block links %}
-    <li><a href="{{ url_for('doctor.dashboard') }}">Dashboard</a></li>
-    <span>Logged in as {{user_id}}</span>
-    <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+<span>Logged in as {{user_id}}</span>
+<li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
 {% endblock links %}
 
 {% block content %}
@@ -37,14 +44,16 @@
 </div>
 
 <h1>Patient Case {{ case_number }}</h1>
-    {% if image_urls %}
-        <div>
-            <h2>Case Images</h2>
-            {% for url in image_urls %}
-                <img src="{{ url }}" alt="Case image" style="margin: 10px; height: 200px; width: auto;">
-            {% endfor %}
-        </div>
-    {% else %}
-        <p>No images available for this case.</p>
-    {% endif %}
+{% if image_urls %}
+<div>
+    <h2>Case Images</h2>
+    {% for url in image_urls %}
+    <img src="{{ url }}" alt="Case image" style="margin: 10px; height: 200px; width: auto;">
+    {% endfor %}
+</div>
+{% else %}
+<p>No images available for this case.</p>
+{% endif %}
+
+
 {% endblock content %}
