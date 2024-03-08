@@ -8,9 +8,11 @@
 
     <title>{% block title %}{% endblock title %}</title>
 
+    {# CSS #}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -62,31 +64,43 @@
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
-                        content.</p>
+                    <h5 class="white-text">About Brainiac</h5>
+                    <p class="grey-text text-lighten-4">Brainiac is a state-of-the-art platform that utilizes a hybrid
+                        deep learning model to revolutionize the diagnosis and case management of brain tumors. Our
+                        system ensures an optimal utilization of expertise and resources within the healthcare system,
+                        facilitating a collaborative approach to healthcare.</p>
                 </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Features</h5>
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                        <li><a class="white-text" href="#!">AI-driven Diagnosis</a></li>
+                        <li><a class="white-text" href="#!">Doctor Allocation Algorithm</a></li>
+                        <li><a class="white-text" href="#!">User-friendly Web Portal</a></li>
+                        <li><a class="white-text" href="#!">Transparent Results Display</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Contact Us</a></li>
+                        <li><a class="white-text" href="#!">Support</a></li>
+                        <li><a class="white-text" href="#!">FAQs</a></li>
+                        <li><a class="white-text" href="#!">Feedback</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
             <div class="container center">
-                © 2024 - GG&YSJ
+                © 2024 - Brainiac
             </div>
         </div>
     </footer>
-
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="{{url_for('static', filename='js/materialize.js')}}"></script>
+    <script src="{{url_for('static', filename='js/init.js')}}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
