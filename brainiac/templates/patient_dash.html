@@ -18,35 +18,50 @@
 
 <!-- Display Patient Medical Details -->
 <hr>
-<div>
-    <h2>Your Medical Details:</h2>
-    <p>
-        <bold>First Name:</bold> {{ patient.first_name }}
-    </p>
-    <p>
-        <bold>Last Name:</bold> {{ patient.last_name }}
-    </p>
-    <p>
-        <bold>Gender:</bold> {{ patient.gender}}
-    </p>
-    <p>
-        <bold>Phone:</bold> {{ patient.phone_number}}
-    </p>
-    <p>
-        <bold>Birthday:</bold> {{ patient.birthday}}
-    </p>
-    <p>
-        <bold>Email:</bold> {{ patient.email_id}}
-    </p>
+<div class="card horizontal" style="margin: 0 15%;">
+    <div class="card-stacked">
+        <div class="card-content" style="text-align: left;">
+            <div>
+                <h2 style="margin-top: 0;">Your Medical Details</h2>
+                <p>
+                    <bold>First Name:</bold> {{ patient.first_name }}
+                </p>
+                <p>
+                    <bold>Last Name:</bold> {{ patient.last_name }}
+                </p>
+                <p>
+                    <bold>Gender:</bold> {{ patient.gender}}
+                </p>
+                <p>
+                    <bold>Phone:</bold> {{ patient.phone_number}}
+                </p>
+                <p>
+                    <bold>Birthday:</bold> {{ patient.birthday}}
+                </p>
+                <p>
+                    <bold>Email:</bold> {{ patient.email_id}}
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
+
 <hr>
 
 <!-- Upload MRI Scans Section -->
-<h2>Upload MRI Scans:</h2>
-<form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data">
-    <input type="file" name="scans" accept=".jpg, .jpeg, .png" multiple required><br>
-    <button type="submit">Upload</button>
-</form>
+<div class="card horizontal" style="margin: 0 15%;">
+    <div class="card-stacked">
+        <div class="card-content" style="text-align: left;">
+            <h2 style="margin-top: 0;">Upload MRI Scans</h2>
+            <form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="scans" accept=".jpg, .jpeg, .png" multiple required><br>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
 
 <hr>
 
@@ -54,15 +69,41 @@
 
 
 <div>
-    <h1>Case Images</h1>
-    {% if cases %}
-    {% for case, urls in cases.items() %}
-    <p>{{ case }}: </p>
-    {% for url in urls %}
-    <img src="{{ url }}" alt="{{ case }} image" height="150" width="150">
-    {% endfor %}
-    {% endfor %}
-    {% endif%}
+    <h2 style="margin-left:17%;">Case Images</h1>
+        <div class="row">
+            {% if cases %}
+            {% set count = 0 %}
+            {% for case, urls in cases.items() %}
+            {% set count = loop.index %}
+            {# <div class="col s12 m6 offset-m3"> #}
+                <div class="card horizontal" style="margin: 1% 15%; ">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p style="font-weight: 600; font-size:32px"> Case {{count}}: </p>
+                            {% for url in urls %}
+                            <img src=" {{ url }}" alt="{{ case }} image" height="150" width="150">
+                            {% endfor %}
 
+                            <p>Status: Pending</p>
+                            <p>Doctor Name: Doctor</p>
+                            <p>Diagnosis: Cancer</p>
+                            <p>Treatment: You're gonna die</p>
+                        </div>
+                        {# <div class="card-action">
+                            <a href="#">This is a link</a>
+                        </div> #}
+
+                    </div>
+                </div>
+                {#
+            </div> #}
+            {% endfor %}
+            {% endif%}
+        </div>
 </div>
+
+
+
+{# imas #}
+
 {% endblock content %}
