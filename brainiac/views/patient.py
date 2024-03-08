@@ -61,7 +61,8 @@ def upload_image():
             {"user_id": patient_id},
             {
                 "$set": {"scans." + case_name: img_urls},
-                "$inc": {"case_number": 1}
+                "$inc": {"case_number": 1},
+                "$set": {"case_details." + case_name: {"status" : "Processing"}}
             }
         )
         return redirect(url_for('patient.dashboard'))
