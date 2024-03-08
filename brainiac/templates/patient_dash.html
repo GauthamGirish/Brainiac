@@ -71,11 +71,8 @@
         <div class="card-content" style="text-align: left;">
             <h2 style="margin-top: 0;">Upload MRI Scans</h2>
             <form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data">
-                {# <input type="file" name="scans" accept=".jpg, .jpeg, .png" multiple required><br> #}
-                <label class="btn waves-effect waves-light" style="margin-bottom: 10px;">
-                    <input style="display: none;" type="file" name="scans" accept=".jpg, .jpeg, .png" multiple required>
-                    Choose Scans to Upload
-                </label><br>
+                <input type="file" name="scans" accept=".jpg, .jpeg, .png" multiple required><br>
+                <br>
                 <button type="submit" class="btn waves-effect waves-light">Upload</button>
             </form>
         </div>
