@@ -24,8 +24,10 @@ def dashboard():
     
     return render_template('doctor_dash.html', doctor=doctor_data, cases=image_urls)
 
-@doctor_bp.route('/view_case/<patient_id>/<case_number>')
+@doctor_bp.route('/view_case/int:<patient_id>/int:<case_number>')
 def view_case(patient_id, case_number):
-    patient_data = current_app.db.patients.find_one({'user_id': patient_id})
-    image_urls = patient_data["scans"]['case' + str(case_number)]
-    return render_template('case.html', patient_data=patient_data, case_number=case_number, image_urls=image_urls)
+    print(type(patient_id), type(case_number))
+    return redirect(url_for('doctor.dashboard'))
+    #patient_data = current_app.db.patients.find_one({'user_id': patient_id})
+    #image_urls = patient_data["scans"]['case' + str(case_number)]
+    #return render_template('case.html', patient_data=patient_data, case_number=case_number, image_urls=image_urls)

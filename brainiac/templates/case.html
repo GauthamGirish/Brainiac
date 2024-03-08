@@ -1,9 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome</title>
-</head>
-<body>
-    <h1>You've landed here</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+
+
+{% block content %}
+    <h1>Patient Case {{ case_number }}</h1>
+    {% if image_urls %}
+        <div>
+            <h2>Case Images</h2>
+            {% for url in image_urls %}
+                <img src="{{ url }}" alt="Case image" style="margin: 10px; height: 200px; width: auto;">
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No images available for this case.</p>
+    {% endif %}
+{% endblock content %}

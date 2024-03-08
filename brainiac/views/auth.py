@@ -52,17 +52,14 @@ def login():
         email_id = request.form['email_id']
         password = request.form['password']
 
-        user = current_app.db.patients.find_one(
-            {'email_id': email_id, 'password': password})
-        print(user)
+        user = current_app.db.patients.find_one({'email_id': email_id, 'password': password})
         if user is not None:
             session['user_id'] = user['user_id']
             session['role'] = 'patient'
             return redirect(url_for("patient.dashboard"))
 
         # if user is not found in patients collection, then check in doctors collection
-        user = current_app.db.doctors.find_one(
-            {'email_id': email_id, 'password': password})
+        user = current_app.db.doctors.find_one({'email_id': email_id, 'password': password})
         if user is not None:
             session['user_id'] = user['user_id']
             session['role'] = 'doctor'
