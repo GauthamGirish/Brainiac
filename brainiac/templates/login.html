@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% block title %}Login{% endblock title %}
+
+
 {% block links %}
 <li> <a href="{{ url_for('auth.register') }}">Register</a> </li>
 <li><a href="{{ url_for('auth.login')}}">Login</a></li>
