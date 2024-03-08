@@ -26,5 +26,6 @@ def dashboard():
 
 @doctor_bp.route('/view_case/<patient_id>/<case_number>')
 def view_case(patient_id, case_number):
-    #add process logic here
-    return render_template('case.html', patient_id=patient_id, case_number=case_number)
+    patient_data = current_app.db.patients.find_one({'user_id': patient_id})
+    image_urls = patient_data["scans"]['case' + str(case_number)]
+    return render_template('case.html', patient_data=patient_data, case_number=case_number, image_urls=image_urls)
