@@ -20,14 +20,28 @@ def register():
             if existing_user is not None:
                 return render_template('register.html', message="User already exists")
             user_id = current_app.db.meta.find_one_and_update({'field': 'user_id'}, {'$inc': {'current_value': 1}}, return_document=True)['current_value']
-            current_app.db.patients.insert_one({'user_id': user_id, 'email_id': email_id, 'password': password, 'first_name': first_name,'last_name': last_name, 'phone_number': phone_number, 'birthday': birthday, 'gender': gender})
+            current_app.db.patients.insert_one({'user_id': user_id, 
+                                                'email_id': email_id, 
+                                                'password': password, 
+                                                'first_name': first_name,
+                                                'last_name': last_name, 
+                                                'phone_number': phone_number, 
+                                                'birthday': birthday, 
+                                                'gender': gender})
             return redirect(url_for("auth.login"))
         else:
             existing_user = current_app.db.doctors.find_one({'$or': [{'email_id': email_id}, {'phone_number': phone_number}]})
             if existing_user is not None:
                 return render_template('register.html', message="User already exists")
             user_id = current_app.db.meta.find_one_and_update({'field': 'user_id'}, {'$inc': {'current_value': 1}}, return_document=True)['current_value']
-            current_app.db.doctors.insert_one({'user_id': user_id, 'email_id': email_id, 'password': password, 'first_name': first_name,'last_name': last_name, 'phone_number': phone_number, 'birthday': birthday, 'gender': gender})
+            current_app.db.doctors.insert_one({'user_id': user_id, 
+                                               'email_id': email_id, 
+                                               'password': password, 
+                                               'first_name': first_name,
+                                               'last_name': last_name, 
+                                               'phone_number': phone_number, 
+                                               'birthday': birthday, 
+                                               'gender': gender})
             return redirect(url_for("auth.login"))
     return render_template('register.html', message="Create an account")
 
