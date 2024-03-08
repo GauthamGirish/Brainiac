@@ -26,31 +26,31 @@
     <div class="card-stacked">
         <div class="card-content" style="text-align: left;">
             <h2 style=" margin-top: 0;">Patient Information</h2>
-            <div class="patient-info">
-                <div>
-                    <label>Email ID:</label>
-                    <span>{{ patient_data['email_id'] }}</span>
-                </div>
-                <div>
-                    <label>First Name:</label>
+            <div id="patient-info">
+                <p>
+                    <bold>First Name:</bold>
                     <span>{{ patient_data['first_name'] }}</span>
-                </div>
-                <div>
-                    <label>Last Name:</label>
+                </p>
+                <p>
+                    <bold>Last Name:</bold>
                     <span>{{ patient_data['last_name'] }}</span>
-                </div>
-                <div>
-                    <label>Phone Number:</label>
-                    <span>{{ patient_data['phone_number'] }}</span>
-                </div>
-                <div>
-                    <label>Birthday:</label>
-                    <span>{{ patient_data['birthday'] }}</span>
-                </div>
-                <div>
-                    <label>Gender:</label>
+                </p>
+                <p>
+                    <bold>Gender:</bold>
                     <span>{{ patient_data['gender'] }}</span>
-                </div>
+                </p>
+                <p>
+                    <bold>Phone Number:</bold>
+                    <span>{{ patient_data['phone_number'] }}</span>
+                </p>
+                <p>
+                    <bold>Birthday:</bold>
+                    <span>{{ patient_data['birthday'] }}</span>
+                </p>
+                <p>
+                    <bold>Email ID:</bold>
+                    <span>{{ patient_data['email_id'] }}</span>
+                </p>
             </div>
         </div>
     </div>
