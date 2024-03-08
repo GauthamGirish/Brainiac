@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, current_app, request, session, redirect, url_for
+import model
 
 patient_bp = Blueprint("patient", __name__, url_prefix="/patient")
 
@@ -47,8 +48,7 @@ def upload_image():
                 scan_names.append(new_scan_name)
 
                 # upload image and get url
-                blob_client = current_app.container_client.get_blob_client(
-                    new_scan_name)
+                blob_client = current_app.container_client.get_blob_client(new_scan_name)
                 current_app.container_client.upload_blob(new_scan_name, scan)
                 img_urls.append(blob_client.url)
             except Exception as e:
@@ -65,6 +65,10 @@ def upload_image():
                 "$set": {"case_details." + case_name: {"status" : "Processing"}}
             }
         )
+
+        #passing necessary data to dl model
+        model.new_case(patient_data, case_name, img_urls)
+
         return redirect(url_for('patient.dashboard'))
 
 

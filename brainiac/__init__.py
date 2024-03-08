@@ -54,3 +54,4 @@ def create_app(test_config=None):
     app.container_client = blob_service_client.get_container_client(container=container_name)
 
     return app
+
