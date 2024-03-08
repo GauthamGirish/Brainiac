@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
-
+{% block links %}
+    <li><a href="{{ url_for('doctor.dashboard') }}">Dashboard</a></li>
+    <span>Logged in as {{user_id}}</span>
+    <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+{% endblock links %}
 
 {% block content %}
     <h1>Patient Case {{ case_number }}</h1>

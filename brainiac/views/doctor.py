@@ -30,4 +30,5 @@ def view_case(patient_id, case_number):
     #return redirect(url_for('doctor.dashboard'))
     patient_data = current_app.db.patients.find_one({'user_id': patient_id})
     image_urls = patient_data["scans"]['case' + str(case_number)]
-    return render_template('case.html', patient_data=patient_data, case_number=case_number, image_urls=image_urls)
+    return render_template('case.html', patient_data=patient_data, case_number=case_number,
+                           image_urls=image_urls, user_id=session['user_id'])
