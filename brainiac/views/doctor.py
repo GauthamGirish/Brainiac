@@ -26,3 +26,6 @@ def dashboard():
     
     return render_template('doctor_dash.html', doctor=doctor_data, cases=image_urls)
 
+def view_case(patient_id, case_number):
+    #add process logic here
+    return render_template('case.html', patient_id=patient_id, case_number=case_number)
