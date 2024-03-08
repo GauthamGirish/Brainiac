@@ -48,7 +48,7 @@
     {% for case, urls in cases.items() %}
     <p>{{ case }}: </p>
     {% for url in urls %}
-    <a href="{{ url_for('view_case', patient_ID=patient_ID, case_number=case_number) }}">
+    <a href="{{ url_for('doctor.view_case', patient_id=patient_id, case_number=case_number) }}">
         <img src="{{ url }}" alt="Case {{ case_number }} image" height="150" width="150">
     {% endfor %}
     {% endfor %}

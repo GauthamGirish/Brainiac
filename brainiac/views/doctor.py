@@ -15,11 +15,9 @@ def dashboard():
 
     if "cases" in doctor_data:
         for case in doctor_data["cases"]:
-            patient_ID, case_number = case
-            print(patient_ID, case_number)
-            patient_data = current_app.db.patients.find_one({'user_id': patient_ID})
-            print(patient_data)
-            image_urls[patient_ID, case_number] = patient_data["scans"]['case' + str(case_number)]
+            patient_id, case_number = case
+            patient_data = current_app.db.patients.find_one({'user_id': patient_id})
+            image_urls[patient_id, case_number] = patient_data["scans"]['case' + str(case_number)]
     #just a fallback image for now - G
     else:
         image_urls["Agent J"] = ['https://brainiac02.blob.core.windows.net/mriscans/WhatsApp Image 2023-03-23 at 7.12.19 PM.jpeg']
