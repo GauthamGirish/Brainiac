@@ -21,8 +21,8 @@
 <div class="card horizontal" style="margin: 0 15%;">
     <div class="card-stacked">
         <div class="card-content" style="text-align: left;">
-            <h2 style="margin-top: 0;">Your Medical Details</h2>
-            <div>
+            <h2 style=" margin-top: 0;">Your Medical Details</h2>
+            <div id="details">
                 <p>
                     <bold>First Name:</bold> {{ patient.first_name }}
                 </p>
@@ -41,7 +41,19 @@
                 <p>
                     <bold>Email:</bold> {{ patient.email_id}}
                 </p>
+                <button class=" btn waves-effect waves-light" id="editButton">Edit</button>
             </div>
+
+            <!-- Hidden form for editing details -->
+            <form id="editForm" style="display: none;" method="POST" action="{{url_for('patient.edit')}}">
+                <input type="text" name="first_name" value="{{ patient.first_name }}" placeholder="First Name">
+                <input type="text" name="last_name" value="{{ patient.last_name }}" placeholder="Last Name">
+                <input type="text" name="gender" value="{{ patient.gender }}" placeholder="Gender">
+                <input type="text" name="phone_number" value="{{ patient.phone_number }}" placeholder="Phone Number">
+                <input type="date" name="birthday" value="{{ patient.birthday }}" placeholder="Birthday">
+                <input type="email" name="email_id" value="{{ patient.email_id }}" placeholder="Email">
+                <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
+            </form>
         </div>
     </div>
 </div>
@@ -67,7 +79,6 @@
 
 <!-- Display Case Images Section -->
 
-
 <div>
     <h2 style="margin-left:17%;">Case Images</h1>
         <div class="row">
@@ -85,7 +96,7 @@
                             {% endfor %}
 
                             <p>Status: Pending</p>
-                            <p>Doctor Name: Doctor</p>
+                            <p>patient Name: patient</p>
                             <p>Diagnosis: Cancer</p>
                             <p>Treatment: You're gonna die</p>
                         </div>

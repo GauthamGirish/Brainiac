@@ -78,18 +78,44 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="../static/js/materialize.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, {});
+
+        });
+
+        document.getElementById('editButton').onclick = function () {
+            document.getElementById('details').style.display = 'none';
+            document.getElementById('editForm').style.display = 'block';
+        };
+    </script>
+
+
+    {#
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('select');
             var instances = M.FormSelect.init(elems, {});
         });
     </script>
+
     <script>
-        document.getElementById('editButton').onclick = function() {
+        document.getElementById('editDoctorButton').onclick = function () {
             document.getElementById('doctorDetails').style.display = 'none';
-            document.getElementById('editForm').style.display = 'block';
+            document.getElementById('editDoctorForm').style.display = 'block';
         };
     </script>
+
+
+    <script>
+        document.getElementById('editPatientButton').onclick = function () {
+            document.getElementById('patientDetails').style.display = 'none';
+            document.getElementById('editPatientForm').style.display = 'block';
+        };
+    </script> #}
+
 </body>
 
 </html>

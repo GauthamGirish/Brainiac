@@ -7,7 +7,7 @@ patient_bp = Blueprint("patient", __name__, url_prefix="/patient")
 def dashboard():
     if session.get('user_id', default=None) is None:
         return redirect(url_for("auth.login"))
-    
+
     patient_data = current_app.db.patients.find_one({'user_id': session['user_id']})
 
     if patient_data is None:
@@ -65,3 +65,34 @@ def upload_image():
             }
         )
         return redirect(url_for('patient.dashboard'))
+
+
+@patient_bp.route('/edit-details', methods=['POST'])
+def edit():
+    if session.get('user_id', default=None) is None:
+        return redirect(url_for("auth.login"))
+
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    gender = request.form.get('gender')
+    email_id = request.form.get('email_id')
+    phone_number = request.form.get('phone_number')
+    address = request.form.get('address')
+    birthday = request.form.get('birthday')
+
+    current_app.db.patients.update_one(
+        {"user_id": session['user_id']},
+        {
+            "$set": {
+                "first_name": first_name,
+                "last_name": last_name,
+                "email_id": email_id,
+                "phone_number": phone_number,
+                "address": address,
+                "gender": gender,
+                "birthday": birthday
+            },
+        }
+    )
+
+    return redirect(url_for('patient.dashboard'))
