@@ -2,60 +2,92 @@
 
 {% block title %}Doctor Dashboard{% endblock title %}
 
-{% block links %}
-{# <li class="{{ 'active' if request.path == url_for('doctor.dashboard') else '' }}">
+
+
+{% block dashboard %}
+<li class="{{ 'active' if request.path == url_for('doctor.dashboard') else '' }}">
     <a href="{{ url_for('doctor.dashboard') }}">Dashboard</a>
-</li> #}
-<span>Logged in as {{doctor.user_id}}</span>
+</li>
+{% endblock dashboard %}
+
+{% block links %}
+<span>Logged in as {{doctor.first_name}} {{doctor.last_name}}</span>
 <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
 {% endblock links %}
 
 {% block content %}
 <center>
     <h1>Welcome to Your Doctor Dashboard</h1>
-
 </center>
 
-<!-- Display  doctor Details -->
-<div class="container">
-    <h2>Your Medical Details:</h2>
-    <div id="doctorDetails">
-        <p><strong>First Name:</strong> {{ doctor.first_name }}</p>
-        <p><strong>Last Name:</strong> {{ doctor.last_name }}</p>
-        <p><strong>Gender:</strong> {{ doctor.gender }}</p>
-        <p><strong>Phone:</strong> {{ doctor.phone_number }}</p>
-        <p><strong>Birthday:</strong> {{ doctor.birthday }}</p>
-        <p><strong>Email:</strong> {{ doctor.email_id }}</p>
-        <button class="btn waves-effect waves-light" id="editButton">Edit</button>
+<!-- Display Doctor Details -->
+{# <div class="container"> #}
+    <div class="card horizontal" style="margin: 0 15%;">
+        <div class="card-stacked">
+            <div class="card-content" style="text-align: left;">
+                <h2 style="margin-top: 0;">Your Medical Details</h2>
+                <div id="details">
+                    <p>
+                        <bold>First Name:</bold> {{ doctor.first_name }}
+                    </p>
+                    <p>
+                        <bold>Last Name:</bold> {{ doctor.last_name }}
+                    </p>
+                    <p>
+                        <bold>Gender:</bold> {{ doctor.gender }}
+                    </p>
+                    <p>
+                        <bold>Phone:</bold> {{ doctor.phone_number }}
+                    </p>
+                    <p>
+                        <bold>Birthday:</bold> {{ doctor.birthday }}
+                    </p>
+                    <p>
+                        <bold>Email:</bold> {{ doctor.email_id }}
+                    </p>
+                    <button class="btn waves-effect waves-light" id="editButton">Edit</button>
+                </div>
+
+                <!-- Hidden form for editing details -->
+                <form id="editForm" style="display: none;" method="POST" action="{{ url_for('doctor.edit') }}">
+                    <input type="text" name="first_name" value="{{ doctor.first_name }}" placeholder="First Name">
+                    <input type="text" name="last_name" value="{{ doctor.last_name }}" placeholder="Last Name">
+                    <input type="text" name="gender" value="{{ doctor.gender }}" placeholder="Gender">
+                    <input type="text" name="phone_number" value="{{ doctor.phone_number }}" placeholder="Phone Number">
+                    <input type="date" name="birthday" value="{{ doctor.birthday }}" placeholder="Birthday">
+                    <input type="email" name="email_id" value="{{ doctor.email_id }}" placeholder="Email">
+                    <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
+                </form>
+            </div>
+        </div>
     </div>
+    {#
+</div> #}
 
-    <!-- Hidden form for editing details -->
-    <form id="editForm" style="display: none;" method="POST" action="{{ url_for('doctor.edit') }}">
-        <input type="text" name="first_name" value="{{ doctor.first_name }}" placeholder="First Name">
-        <input type="text" name="last_name" value="{{ doctor.last_name }}" placeholder="Last Name">
-        <input type="text" name="gender" value="{{ doctor.gender }}" placeholder="Gender">
-        <input type="text" name="phone_number" value="{{ doctor.phone_number }}" placeholder="Phone Number">
-        <input type="date" name="birthday" value="{{ doctor.birthday }}" placeholder="Birthday">
-        <input type="email" name="email_id" value="{{ doctor.email_id }}" placeholder="Email">
-        <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
-    </form>
-</div>
 
-<!-- Display Case Images Section -->
+<!-- Display Cases Section -->
 
 
 <div>
-    <h1>Case Images</h1>
-    {% if cases %}
-    {% for (patient_id, case_number), urls in cases.items() %}
-    <a href="{{ url_for('doctor.view_case', patient_id=patient_id, case_number=case_number) }}">
-    <p>Patient ID : {{ patient_id }}, Case No: {{ case_number }}: </p>
-    </a>
-    {% for url in urls %}
-        <img src="{{ url }}" alt="Case {{ case_number }} image" height="150" width="150">
-    {% endfor %}
-    {% endfor %}
-    {% endif %}
+    <h2 style="margin-left:17%;">Cases</h1>
+        <div class="row">
+            {% if cases %}
+            {% for (patient_id, case_number), urls in cases.items() %}
+            <div class="card horizontal" style="margin: 1% 15%; ">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <a href="{{ url_for('doctor.view_case', patient_id=patient_id, case_number=case_number) }}">
+                            <p style="font-weight: 600; font-size:32px">Patient ID: {{ patient_id }}, Case No: {{
+                                case_number }}: </p>
+                        </a>
+                        {% for url in urls %}
+                        <img src="{{ url }}" alt="Case {{ case_number }} image" height="150" width="150">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
 </div>
-
 {% endblock content %}

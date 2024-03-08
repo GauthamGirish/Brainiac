@@ -2,27 +2,32 @@
 
 {% block title %}Patient Dashboard{% endblock title %}
 
-{% block links %}
-{# <li class="{{ 'active' if request.path == url_for('patient.dashboard') else '' }}">
+{% block dashboard %}
+<li class="{{ 'active' if request.path == url_for('patient.dashboard') else '' }}">
     <a href="{{ url_for('patient.dashboard') }}">Dashboard</a>
-</li> #}
-<span>Logged in as {{patient.user_id}}</span>
+</li>
+{% endblock dashboard %}
+
+
+{% block links %}
+<span>Logged in as {{patient.first_name}} {{patient.last_name}}</span>
 <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
 {% endblock links %}
+
+
 
 {% block content %}
 <center>
     <h1>Welcome to Your Patient Dashboard</h1>
-
 </center>
 
 <!-- Display Patient Medical Details -->
-<hr>
+
 <div class="card horizontal" style="margin: 0 15%;">
     <div class="card-stacked">
         <div class="card-content" style="text-align: left;">
-            <div>
-                <h2 style="margin-top: 0;">Your Medical Details</h2>
+            <h2 style=" margin-top: 0;">Your Medical Details</h2>
+            <div id="details">
                 <p>
                     <bold>First Name:</bold> {{ patient.first_name }}
                 </p>
@@ -41,7 +46,19 @@
                 <p>
                     <bold>Email:</bold> {{ patient.email_id}}
                 </p>
+                <button class=" btn waves-effect waves-light" id="editButton">Edit</button>
             </div>
+
+            <!-- Hidden form for editing details -->
+            <form id="editForm" style="display: none;" method="POST" action="{{url_for('patient.edit')}}">
+                <input type="text" name="first_name" value="{{ patient.first_name }}" placeholder="First Name">
+                <input type="text" name="last_name" value="{{ patient.last_name }}" placeholder="Last Name">
+                <input type="text" name="gender" value="{{ patient.gender }}" placeholder="Gender">
+                <input type="text" name="phone_number" value="{{ patient.phone_number }}" placeholder="Phone Number">
+                <input type="date" name="birthday" value="{{ patient.birthday }}" placeholder="Birthday">
+                <input type="email" name="email_id" value="{{ patient.email_id }}" placeholder="Email">
+                <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
+            </form>
         </div>
     </div>
 </div>
@@ -54,8 +71,12 @@
         <div class="card-content" style="text-align: left;">
             <h2 style="margin-top: 0;">Upload MRI Scans</h2>
             <form action="{{ url_for('patient.upload_image') }}" method="post" enctype="multipart/form-data">
-                <input type="file" name="scans" accept=".jpg, .jpeg, .png" multiple required><br>
-                <button type="submit">Upload</button>
+                {# <input type="file" name="scans" accept=".jpg, .jpeg, .png" multiple required><br> #}
+                <label class="btn waves-effect waves-light" style="margin-bottom: 10px;">
+                    <input style="display: none;" type="file" name="scans" accept=".jpg, .jpeg, .png" multiple required>
+                    Choose Scans to Upload
+                </label><br>
+                <button type="submit" class="btn waves-effect waves-light">Upload</button>
             </form>
         </div>
     </div>
@@ -66,7 +87,6 @@
 <hr>
 
 <!-- Display Case Images Section -->
-
 
 <div>
     <h2 style="margin-left:17%;">Case Images</h1>
@@ -85,7 +105,7 @@
                             {% endfor %}
 
                             <p>Status: Pending</p>
-                            <p>Doctor Name: Doctor</p>
+                            <p>Patient Name: patient</p>
                             <p>Diagnosis: Cancer</p>
                             <p>Treatment: You're gonna die</p>
                         </div>
