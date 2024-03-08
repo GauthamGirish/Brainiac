@@ -91,23 +91,22 @@
 <div>
     <h2 style="margin-left:17%;">Case Images</h1>
         <div class="row">
-            {% if cases %}
+            {% if patient.case_details %}
             {% set count = 0 %}
-            {% for case, urls in cases.items() %}
+            {% for patient.case_details, case in patient.case_details() %}
             {% set count = loop.index %}
             {# <div class="col s12 m6 offset-m3"> #}
                 <div class="card horizontal" style="margin: 1% 15%; ">
                     <div class="card-stacked">
                         <div class="card-content">
                             <p style="font-weight: 600; font-size:32px"> Case {{count}}: </p>
-                            {% for url in urls %}
+                            {% for url in case.images %}
                             <img src=" {{ url }}" alt="{{ case }} image" height="150" width="150">
                             {% endfor %}
 
-                            <p>Status: Pending</p>
-                            <p>Patient Name: patient</p>
-                            <p>Diagnosis: Cancer</p>
-                            <p>Treatment: You're gonna die</p>
+                            <p>Status: {{case.status}}</p>
+                            <p>Diagnosis: {{case.diagnosis}}</p>
+                            <p>Treatment: {{case.treatment}}</p>
                         </div>
                         {# <div class="card-action">
                             <a href="#">This is a link</a>
