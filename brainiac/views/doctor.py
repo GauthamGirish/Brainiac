@@ -31,8 +31,12 @@ def view_case(patient_id, case_number):
     if session.get('user_id', default=None) is None:
         return redirect(url_for("auth.login"))
     
-    if request.method == 'POST':
-        patient_data = current_app.db.patients.find_one({'user_id': patient_id})
+    patient_data = current_app.db.patients.find_one({'user_id': patient_id})
+    case_details = patient_data["case_details"]['case' + str(case_number)]
+    if case_details.get('doctor_id') != session['user_id']:
+        return redirect(url_for('doctor.dashboard'))
+    
+    if request.method == 'POST': 
         treatment = request.form.get('treatment')
         diagnosis = request.form.get('diagnosis')
         case_name = "case" + str(case_number)
@@ -44,7 +48,6 @@ def view_case(patient_id, case_number):
             }
         )
 
-    patient_data = current_app.db.patients.find_one({'user_id': patient_id})
     return render_template('case.html', patient_data=patient_data, case_number=case_number, user_id=session['user_id'])
 
 
