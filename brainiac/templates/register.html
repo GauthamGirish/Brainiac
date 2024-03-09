@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock title %}
+
+{% block links %}
+<li> <a href="{{ url_for('auth.register') }}">Register</a> </li>
+<li><a href="{{ url_for('auth.login')}}">Login</a></li>
+{% endblock links %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="card teal lighten-4">
+                <div class="card-content black-text">
+                    <span class="card-title center">Signup Form</span>
+                    <p class="center">{{ message }}</p>
+                    <form action="{{ url_for('auth.register') }}" method="POST">
+                        <div class="input-field">
+                            <input type="email" id="email_id" name="email_id" class="validate" required>
+                            <label for="email_id">Email</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input type="password" id="password" name="password" class="validate" required>
+                            <label for="password">Password</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input type="text" id="first_name" name="first_name" class="validate" required>
+                            <label for="first_name">First Name</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input type="text" id="last_name" name="last_name" class="validate" required>
+                            <label for="last_name">Last Name</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input type="tel" id="phone_number" name="phone_number" class="validate" required>
+                            <label for="phone_number">Phone Number</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input type="date" id="birthday" name="birthday" class="validate" required>
+                            <label for="birthday">Date of Birth</label>
+                        </div>
+
+                        <div class="input-field">
+                            <select id="gender" name="gender" required>
+                                <option value="" disabled selected>Choose your option</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <label>Gender</label>
+                        </div>
+
+                        <div class="input-field">
+                            <select id="role" name="role">
+                                <option value="" disabled selected>Choose your option</option>
+                                <option value="patient">Patient</option>
+                                <option value="doctor">Doctor</option>
+                            </select>
+                            <label>Role</label>
+                        </div>
+
+                        <div class="card-action">
+                            <button type="submit" class="waves-effect waves-light btn">Signup</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

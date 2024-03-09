@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Patient {{patient_data['user_id']}}, Case {{case_number}}{% endblock title %}
+
+
+{% block dashboard %}
+<li class="{{ 'active' if request.path == url_for('doctor.dashboard') else '' }}">
+    <a href="{{ url_for('doctor.dashboard') }}">Dashboard</a>
+</li>
+{% endblock dashboard %}
+
+
+{% block links %}
+<span>Logged in as {{user_id}}</span>
+<li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+{% endblock links %}
+
+
+{% block content %}
+
+<center>
+    <h1>Patient {{patient_data['user_id']}}, Case {{case_number}}</h1>
+</center>
+
+<div class="card horizontal" style="margin: 0 15%;">
+    <div class="card-stacked">
+        <div class="card-content" style="text-align: left;">
+            <h2 style=" margin-top: 0;">Patient Information</h2>
+            <div id="patient-info">
+                <p>
+                    <bold>First Name:</bold>
+                    <span>{{ patient_data['first_name'] }}</span>
+                </p>
+                <p>
+                    <bold>Last Name:</bold>
+                    <span>{{ patient_data['last_name'] }}</span>
+                </p>
+                <p>
+                    <bold>Gender:</bold>
+                    <span>{{ patient_data['gender'] }}</span>
+                </p>
+                <p>
+                    <bold>Phone Number:</bold>
+                    <span>{{ patient_data['phone_number'] }}</span>
+                </p>
+                <p>
+                    <bold>Birthday:</bold>
+                    <span>{{ patient_data['birthday'] }}</span>
+                </p>
+                <p>
+                    <bold>Email ID:</bold>
+                    <span>{{ patient_data['email_id'] }}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="row">
+        <div class="card horizontal" style="margin: 1% 15%; ">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <h2 style="margin-top: 0;">Case Images</h2>
+                    {% for url in patient_data.case_details["case"+case_number|string]["scans"] %}
+                    <img src="{{ url }}" alt="Case image" style="margin: 10px; height: 200px; width: auto;">
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{# Brainiac's Diagnosis #}
+
+<div class="card horizontal" style="margin: 0 15%;">
+    <div class="card-stacked">
+        <div class="card-content" style="text-align: left;">
+            <h2 style=" margin-top: 0;">Brainiac's Diagnosis</h2>
+            <div id="diagnosis-info">
+                <p>
+                    Diagnosis: {{ patient_data.case_details['case'+case_number|string]['diagnosis'] }}
+                </p>
+                <p>
+                    Accuracy: {{ patient_data.case_details['case'+case_number|string]['accuracy'] }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Treatment plan #}
+<div class="card horizontal" style="margin: 1%  15%;">
+    <div class="card-stacked">
+        <div class="card-content" style="text-align: left;">
+            <h2 style=" margin-top: 0;">Result</h2>
+            <div id="details">
+                <p>
+                    Diagnosis: {{ patient_data.case_details['case'+case_number|string]['diagnosis'] }}
+                </p>
+                <p>
+                    Treatment Plan: {{ patient_data.case_details["case"+case_number|string]["treatment"] }}
+                </p>
+                <button class="btn waves-effect waves-light" id="editButton">Edit</button>
+            </div>
+
+            <form id="editForm" style="display: none;" method="POST"
+                action="{{url_for('doctor.view_case', patient_id=patient_data.user_id, case_number=case_number)}}">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea name="diagnosis" id="diagnosis" cols="30" rows="10"
+                            class="materialize-textarea"> {{ patient_data.case_details['case'+case_number|string]['diagnosis'] | trim }}</textarea>
+                        <label for="diagnosis">Diagnosis:</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <textarea name="treatment" id="treatment" cols="30" rows="10"
+                            class="materialize-textarea"> {{ patient_data.case_details["case"+case_number|string]["treatment"] | trim}}</textarea>
+                        <label for="treatment">Treatment Plan:</label>
+                        <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

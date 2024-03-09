@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>{% block title %}{% endblock title %}</title>
+
+    {# CSS #}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper teal darken-4 ">
+
+            <ul class="left hide-on-med-and-down">
+                <li>
+                    <a href="{{url_for('home')}}" style="font-size:32px">
+                        <span class="material-symbols-outlined"> neurology </span>
+                        Brainiac
+                    </a>
+                </li>
+                {% block dashboard %}
+
+                {% endblock dashboard %}
+            </ul>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                {# <li class="{{ 'active' if request.path == url_for('index.html') else '' }}"><a
+                        href="{{ url_for('index.html') }}">Homepage</a></li> #}
+                {% block links %}
+                {# insert page-specific links here #}
+
+                {% endblock links %}
+            </ul>
+
+        </div>
+    </nav>
+
+
+    {% block content%}
+
+    {# insert page-specific content here #}
+    {% endblock %}
+
+
+    <footer class="page-footer teal darken-4 ">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">About Brainiac</h5>
+                    <p class="grey-text text-lighten-4">Brainiac is a state-of-the-art platform that utilizes a hybrid
+                        deep learning model to revolutionize the diagnosis and case management of brain tumors. Our
+                        system ensures an optimal utilization of expertise and resources within the healthcare system,
+                        facilitating a collaborative approach to healthcare.</p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Features</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">AI-driven Diagnosis</a></li>
+                        <li><a class="white-text" href="#!">Doctor Allocation Algorithm</a></li>
+                        <li><a class="white-text" href="#!">User-friendly Web Portal</a></li>
+                        <li><a class="white-text" href="#!">Transparent Results Display</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Contact Us</a></li>
+                        <li><a class="white-text" href="#!">Support</a></li>
+                        <li><a class="white-text" href="#!">FAQs</a></li>
+                        <li><a class="white-text" href="#!">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container center">
+                © 2024 - Brainiac
+            </div>
+        </div>
+    </footer>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{{url_for('static', filename='js/materialize.js')}}"></script>
+    <script src="{{url_for('static', filename='js/init.js')}}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, {});
+
+        });
+
+        document.getElementById('editButton').onclick = function () {
+            document.getElementById('details').style.display = 'none';
+            document.getElementById('editForm').style.display = 'block';
+        };
+    </script>
+
+</body>
+
+</html>
