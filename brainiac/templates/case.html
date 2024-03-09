@@ -58,21 +58,17 @@
 
 <div>
     <div class="row">
-        {% if image_urls %}
         <div class="card horizontal" style="margin: 1% 15%; ">
             <div class="card-stacked">
                 <div class="card-content">
                     <h2 style="margin-top: 0;">Case Images</h2>
-                    {% for url in image_urls %}
+                    {% for url in patient_data.case_details["case"+case_number|string]["scans"] %}
                     <img src="{{ url }}" alt="Case image" style="margin: 10px; height: 200px; width: auto;">
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-    {% else %}
-    <p>No images available for this case.</p>
-    {% endif %}
 </div>
 </div>
 

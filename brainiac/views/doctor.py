@@ -21,10 +21,7 @@ def dashboard():
         for case in doctor_data["cases"]:
             patient_id, case_number = case
             patient_data = current_app.db.patients.find_one({'user_id': patient_id})
-            image_urls[patient_id, case_number] = patient_data["scans"]['case' + str(case_number)]
-    # just a fallback image for now - G
-    else:
-        image_urls["Agent J"] = ['https://brainiac02.blob.core.windows.net/mriscans/WhatsApp Image 2023-03-23 at 7.12.19 PM.jpeg']
+            image_urls[patient_id, case_number] = patient_data["case_details"]['case' + str(case_number)]["scans"]
 
     return render_template('doctor_dash.html', doctor=doctor_data, cases=image_urls)
 
@@ -34,9 +31,8 @@ def view_case(patient_id, case_number):
     if session.get('user_id', default=None) is None:
         return redirect(url_for("auth.login"))
     patient_data = current_app.db.patients.find_one({'user_id': patient_id})
-    image_urls = patient_data["scans"]['case' + str(case_number)]
-    return render_template('case.html', patient_data=patient_data, case_number=case_number,
-                           image_urls=image_urls, user_id=session['user_id'])
+    #image_urls = patient_data["scans"]['case' + str(case_number)]
+    return render_template('case.html', patient_data=patient_data, case_number=case_number, user_id=session['user_id'])
 
 
 @doctor_bp.route('/edit-details', methods=['POST'])
