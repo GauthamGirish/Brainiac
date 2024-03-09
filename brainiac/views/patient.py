@@ -62,7 +62,7 @@ def upload_image():
         )
 
         #passing necessary data to dl model
-        #model.process_case.delay(patient_data, case_name, img_urls)
+        #model.process_case.delay(patient_data, case_no = case_count, img_urls)
 
         return redirect(url_for('patient.dashboard'))
 
