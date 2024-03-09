@@ -26,12 +26,23 @@ def dashboard():
     return render_template('doctor_dash.html', doctor=doctor_data, cases=image_urls)
 
 
-@doctor_bp.route('/view_case/<int:patient_id>/<int:case_number>')
+@doctor_bp.route('/view_case/<int:patient_id>/<int:case_number>', methods=['GET', 'POST'])
 def view_case(patient_id, case_number):
     if session.get('user_id', default=None) is None:
         return redirect(url_for("auth.login"))
+    
+    if request.method == 'POST':
+        patient_data = current_app.db.patients.find_one({'user_id': patient_id})
+        treatment = request.form.get('treatment')
+        case_name = "case" + str(case_number)
+        current_app.db.patients.update_one(
+            {"user_id": patient_id},
+            {
+                "$set": {"case_details." + case_name + ".treatment": treatment}
+            }
+        )
+
     patient_data = current_app.db.patients.find_one({'user_id': patient_id})
-    #image_urls = patient_data["scans"]['case' + str(case_number)]
     return render_template('case.html', patient_data=patient_data, case_number=case_number, user_id=session['user_id'])
 
 
