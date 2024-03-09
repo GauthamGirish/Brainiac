@@ -94,16 +94,24 @@
 <div class="card horizontal" style="margin: 1%  15%;">
     <div class="card-stacked">
         <div class="card-content" style="text-align: left;">
-            <h2 style=" margin-top: 0;">Treatment Plan</h2>
+            <h2 style=" margin-top: 0;">Result</h2>
             <div id="details">
                 <p>
-                    Treatment Plan: Stop sharing cigarettes
+                    Diagnosis: {{ patient_data.case_details["case"+case_number|string]["diagnosis"] }}
+                </p>
+                <p>
+                    Treatment Plan: {{ patient_data.case_details["case"+case_number|string]["treatment"] }}
                 </p>
                 <button class="btn waves-effect waves-light" id="editButton">Edit</button>
             </div>
 
-            <form id="editForm" style="display: none;" method="POST" action="">
+            <form id="editForm" style="display: none;" method="POST" action="{{url_for('doctor.view_case', patient_id=patient_data.user_id, case_number=case_number)}}">
                 <div class="row">
+                    <div class="input-field col s12">
+                        <textarea name="diagnosis" id="diagnosis" cols="30" rows="10"
+                            class="materialize-textarea"></textarea>
+                        <label for="treatment">Diagnosis:</label>
+                    </div>
                     <div class="input-field col s12">
                         <textarea name="treatment" id="treatement" cols="30" rows="10"
                             class="materialize-textarea"></textarea>
