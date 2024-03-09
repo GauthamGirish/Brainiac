@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template
 from pymongo import MongoClient
 from azure.storage.blob import BlobServiceClient
-#from celery import Celery
+from celery import Celery
 
 def create_app(test_config=None):
     # create and configure the app
@@ -59,7 +59,7 @@ def create_app(test_config=None):
     #app.celery = celery
 
     return app
-'''
+
 def make_celery(app):
     celery = Celery(
         app.import_name,
@@ -75,4 +75,3 @@ def make_celery(app):
                 
     celery.Task = ContextTask
     return celery
-    '''
