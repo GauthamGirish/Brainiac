@@ -80,10 +80,10 @@
             <h2 style=" margin-top: 0;">Brainiac's Diagnosis</h2>
             <div id="diagnosis-info">
                 <p>
-                    Diagnosis: Cancer
+                    Diagnosis: {{ patient_data.case_details['case'+case_number|string]['diagnosis'] }}
                 </p>
                 <p>
-                    Accuracy: 100%
+                    Accuracy: {{ patient_data.case_details['case'+case_number|string]['accuracy'] }}
                 </p>
             </div>
         </div>

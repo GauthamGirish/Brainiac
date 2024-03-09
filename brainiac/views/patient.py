@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, current_app, request, session, redirect, url_for
-#from views import model
+from . import tasks
 
 patient_bp = Blueprint("patient", __name__, url_prefix="/patient")
 
@@ -62,7 +62,7 @@ def upload_image():
         )
 
         #passing necessary data to dl model
-        #model.process_case.delay(patient_data, case_no = case_count, img_urls)
+        tasks.process_case(patient_data, case_count, img_urls)
 
         return redirect(url_for('patient.dashboard'))
 
