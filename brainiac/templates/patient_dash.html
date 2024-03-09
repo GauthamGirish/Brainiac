@@ -10,7 +10,7 @@
 
 
 {% block links %}
-<span>Logged in as {{patient.first_name}} {{patient.last_name}}</span>
+<span>Logged in as {{patient.first_name}}</span>
 <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
 {% endblock links %}
 
@@ -90,20 +90,21 @@
         <div class="row">
             {% if patient.case_details %}
             {% set count = 0 %}
-            {% for patient.case_details, case in patient.case_details() %}
+            {% for case_no, case_details in patient.case_details.items() %}
             {% set count = loop.index %}
             {# <div class="col s12 m6 offset-m3"> #}
                 <div class="card horizontal" style="margin: 1% 15%; ">
                     <div class="card-stacked">
                         <div class="card-content">
                             <p style="font-weight: 600; font-size:32px"> Case {{count}}: </p>
-                            {% for url in case.images %}
+                            {% for url in case_details.scans %}
                             <img src=" {{ url }}" alt="{{ case }} image" height="150" width="150">
                             {% endfor %}
-
-                            <p>Status: {{case.status}}</p>
-                            <p>Diagnosis: {{case.diagnosis}}</p>
-                            <p>Treatment: {{case.treatment}}</p>
+                            <p>Status: {{case_details.status}}</p>
+                            {% if case_details.diagnosis %}
+                            <p>Diagnosis: {{case_details.diagnosis}}</p>
+                            <p>Treatment: {{case_details.treatment}}</p>
+                            {% endif %}
                         </div>
                         {# <div class="card-action">
                             <a href="#">This is a link</a>
