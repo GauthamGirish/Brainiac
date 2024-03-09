@@ -97,7 +97,7 @@
             <h2 style=" margin-top: 0;">Result</h2>
             <div id="details">
                 <p>
-                    Diagnosis: {{ patient_data.case_details["case"+case_number|string]["diagnosis"] }}
+                    Diagnosis: {{ patient_data.case_details['case'+case_number|string]['diagnosis'] }}
                 </p>
                 <p>
                     Treatment Plan: {{ patient_data.case_details["case"+case_number|string]["treatment"] }}
@@ -105,18 +105,19 @@
                 <button class="btn waves-effect waves-light" id="editButton">Edit</button>
             </div>
 
-            <form id="editForm" style="display: none;" method="POST" action="{{url_for('doctor.view_case', patient_id=patient_data.user_id, case_number=case_number)}}">
+            <form id="editForm" style="display: none;" method="POST"
+                action="{{url_for('doctor.view_case', patient_id=patient_data.user_id, case_number=case_number)}}">
                 <div class="row">
                     <div class="input-field col s12">
                         <textarea name="diagnosis" id="diagnosis" cols="30" rows="10"
-                            class="materialize-textarea"></textarea>
-                        <label for="treatment">Diagnosis:</label>
+                            class="materialize-textarea"> {{ patient_data.case_details['case'+case_number|string]['diagnosis'] | trim }}</textarea>
+                        <label for="diagnosis">Diagnosis:</label>
                     </div>
                     <div class="input-field col s12">
-                        <textarea name="treatment" id="treatement" cols="30" rows="10"
-                            class="materialize-textarea"></textarea>
+                        <textarea name="treatment" id="treatment" cols="30" rows="10"
+                            class="materialize-textarea"> {{ patient_data.case_details["case"+case_number|string]["treatment"] | trim}}</textarea>
                         <label for="treatment">Treatment Plan:</label>
-                        <button type="button" class="btn waves-effect waves-light">Submit Changes</button>
+                        <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
                     </div>
                 </div>
             </form>
