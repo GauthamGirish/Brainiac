@@ -59,7 +59,7 @@ def create_app(test_config=None):
     #app.celery = celery
 
     return app
-
+'''
 def make_celery(app):
     celery = Celery(
         app.import_name,
@@ -75,3 +75,4 @@ def make_celery(app):
                 
     celery.Task = ContextTask
     return celery
+    '''
