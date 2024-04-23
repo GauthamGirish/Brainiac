@@ -80,7 +80,7 @@
             <h2 style=" margin-top: 0;">Brainiac's Diagnosis</h2>
             <div id="diagnosis-info">
                 <p>
-                    Diagnosis: {{ patient_data.case_details['case'+case_number|string]['diagnosis'] }}
+                    Diagnosis: {{ patient_data.case_details['case'+case_number|string]['prediction'] }}
                 </p>
                 <p>
                     Accuracy: {{ patient_data.case_details['case'+case_number|string]['accuracy'] }}
