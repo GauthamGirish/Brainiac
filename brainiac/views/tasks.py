@@ -3,7 +3,7 @@ from flask import current_app
 from . import model_utils
 from collections import Counter
 
-model = model_utils.load_model('tumor_classifier_model.pth')
+model = model_utils.load_model('tumor_classifier_model_improved.pth')
 
 
 def process_case(patient_data, case_no, img_urls):

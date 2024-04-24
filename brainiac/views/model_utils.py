@@ -27,13 +27,12 @@ def load_model(path):
         nn.MaxPool2d(2, 2),
         nn.Flatten(),
         nn.Linear(32 * 56 * 56, 128),  # Adjust input size acc to image size
-        nn.Dropout(0.5),
         nn.ReLU(),
         nn.Linear(128, 4)
     )
 
     # Load the trained model state dict
-    model.load_state_dict(torch.load(path))
+    model.load_state_dict(torch.load(path,  map_location=torch.device('cpu')))
     model.eval()  # Set the model to evaluation mode
     return model
 
