@@ -1,6 +1,6 @@
 import random
 from flask import current_app
-from model_utils import load_model, preprocess_img, predict
+from model_utils import load_model, preprocess_img_test, predict
 from collections import Counter
 
 # Load the model
@@ -15,13 +15,21 @@ test_img_urls = [
     r"C:\Users\Jahnavi\Documents\3rd_Year\Y3S2\[C] CSE301\[0] Brainiac Repo\brainiac\static\images\Te-pi_0013.jpg",
     r"C:\Users\Jahnavi\Documents\3rd_Year\Y3S2\[C] CSE301\[0] Brainiac Repo\brainiac\static\images\Te-pi_0014.jpg"
 ]
+# test_img_urls = [
+#     r"C:\Users\Jahnavi\Documents\3rd_Year\Y3S2\[C] CSE301\[0] Brainiac Repo\brainiac\static\images\no 94.jpg",
+#     r"C:\Users\Jahnavi\Documents\3rd_Year\Y3S2\[C] CSE301\[0] Brainiac Repo\brainiac\static\images\no 95.jpg",
+#     r"C:\Users\Jahnavi\Documents\3rd_Year\Y3S2\[C] CSE301\[0] Brainiac Repo\brainiac\static\images\no 96.jpg",
+#     r"C:\Users\Jahnavi\Documents\3rd_Year\Y3S2\[C] CSE301\[0] Brainiac Repo\brainiac\static\images\no 97.jpg",
+#     r"C:\Users\Jahnavi\Documents\3rd_Year\Y3S2\[C] CSE301\[0] Brainiac Repo\brainiac\static\images\no 98.jpg",
+# ]
 
 # Perform prediction
 predictions = []
 accuracies = []
 
 for img_url in test_img_urls:
-    image = preprocess_img(img_url)
+
+    image = preprocess_img_test(img_url)
     predicted_class, confidence = predict(model, image)
     predictions.append(predicted_class)
     accuracies.append(confidence)

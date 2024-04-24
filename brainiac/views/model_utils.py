@@ -38,11 +38,13 @@ def load_model(path):
     return model
 
 
-# def preprocess_img(path):
-#     img = Image.open(path)
-#     img = img_transform(img)
-#     img = img.unsqueeze(0)  # for batch size dim
-#     return img
+def preprocess_img_test(path):
+    img = Image.open(path)
+    img = img.convert('RGB')
+    img = img_transform(img)
+    img = img.unsqueeze(0)  # for batch size dim
+    return img
+
 
 def preprocess_img(url):
     # Download the image from the URL
@@ -51,6 +53,7 @@ def preprocess_img(url):
         # Open the image from the response content
         img = Image.open(BytesIO(response.content))
         # Apply transformations
+        img = img.convert('RGB')  # convert to rgb
         img = img_transform(img)
         img = img.unsqueeze(0)  # Add batch dimension
         return img
