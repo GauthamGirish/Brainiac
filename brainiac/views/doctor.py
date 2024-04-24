@@ -65,6 +65,7 @@ def edit():
     phone_number = request.form.get('phone_number')
     address = request.form.get('address')
     birthday = request.form.get('birthday')
+    experience = request.form.get('experience')
     current_app.db.doctors.update_one(
         {"user_id": session['user_id']},
         {
@@ -75,7 +76,8 @@ def edit():
                 "phone_number": phone_number,
                 "address": address,
                 "gender": gender,
-                "birthday": birthday
+                "birthday": birthday,
+                "experience": experience
             },
         }
     )

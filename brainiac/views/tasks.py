@@ -27,7 +27,37 @@ def process_case(patient_data, case_no, img_urls):
 
     # Assign the case to a doctor
     # doctor_id = random.choice([14, 15])
-    doctor_id = 23  # predoc
+    # doctor_id = 23  # predoc
+
+    # doc allocation algo
+    # doctor_id = random.choice([14, 15])
+# doc allocation algo
+    threshold = 0.8
+    if accuracy < threshold:
+        # Query for senior doctors
+        senior_doctors = list(current_app.db.doctors.find({"experience": "senior"}))
+        print("senior:", senior_doctors)
+
+        # Check if there are any senior doctors
+        if not senior_doctors:
+            print("No senior doctors found.")
+        else:
+            # Select a random senior doctor
+            selected_doctor = random.choice(senior_doctors)
+    else:
+        junior_doctors = list(current_app.db.doctors.find({"experience": "junior"}))
+        print("junior: ", junior_doctors)
+        # Check if there are any junior doctors
+        if not junior_doctors:
+            print("No junior doctors found.")
+        else:
+            # Select a random senior doctor
+            selected_doctor = random.choice(junior_doctors)
+
+    doctor_id = selected_doctor['user_id']
+    print("seldoc", accuracy, doctor_id)
+
+    # doctor_id = 23  # predoc
 
     # update the patient data
     case_name = "case" + str(case_no)
