@@ -30,8 +30,8 @@ def dashboard():
 def view_case(patient_id, case_number):
     if session.get('user_id', default=None) is None:
         return redirect(url_for("auth.login"))
-    
-    if request.method == 'POST': 
+
+    if request.method == 'POST':
         patient_data = current_app.db.patients.find_one({'user_id': patient_id})
         treatment = request.form.get('treatment')
         diagnosis = request.form.get('diagnosis')
@@ -39,8 +39,9 @@ def view_case(patient_id, case_number):
         current_app.db.patients.update_one(
             {"user_id": patient_id},
             {
-                "$set": {"case_details." + case_name + ".treatment": treatment, 
-                         "case_details." + case_name + ".diagnosis": diagnosis}
+                "$set": {"case_details." + case_name + ".treatment": treatment,
+                         "case_details." + case_name + ".diagnosis": diagnosis,
+                         "case_details." + case_name + ".status": "Complete", }
             }
         )
 
