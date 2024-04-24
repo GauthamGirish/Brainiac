@@ -15,6 +15,7 @@
             <div class="card teal lighten-4">
                 <div class="card-content black-text">
                     <span class="card-title center">Login</span>
+                    <p class="center">{{ message }}</p>
                     <form action="{{ url_for('auth.login') }}" method="POST">
                         <div class="input-field">
                             <input type="email" id="email_id" name="email_id" class="validate" required>
