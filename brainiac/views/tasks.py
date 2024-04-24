@@ -23,16 +23,17 @@ def process_case(patient_data, case_no, img_urls):
 
     # pass the images into the model here
     prediction = labels[pred_idx]
-    accuracy = sum(accuracies) / len(accuracies)
-
+    accuracy = (sum(accuracies) / len(accuracies)) * 100
+    accuracy = round(accuracy, 3)
+    print(accuracy)
     # Assign the case to a doctor
     # doctor_id = random.choice([14, 15])
     # doctor_id = 23  # predoc
 
     # doc allocation algo
     # doctor_id = random.choice([14, 15])
-# doc allocation algo
-    threshold = 0.8
+    # doc allocation algo
+    threshold = 95
     if accuracy < threshold:
         # Query for senior doctors
         senior_doctors = list(current_app.db.doctors.find({"experience": "senior"}))

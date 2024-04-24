@@ -52,7 +52,9 @@ labels = ['glioma', 'meningioma', 'notumor', 'pituitary']
 # Calculate overall prediction and accuracy
 most_common_label = Counter(predictions).most_common(1)[0][0]
 accuracy = sum(accuracies) / len(accuracies)
-
+accuracy = (sum(accuracies) / len(accuracies)) * 100
+accuracy = round(accuracy, 3)
+print(accuracy)
 
 print("All Predictions:", predictions)
 print("Most common predicted class label:", labels[most_common_label])
