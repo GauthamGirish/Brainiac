@@ -37,14 +37,6 @@ def load_model(path):
     return model
 
 
-def preprocess_img_test(path):
-    img = Image.open(path)
-    img = img.convert('RGB')
-    img = img_transform(img)
-    img = img.unsqueeze(0)  # for batch size dim
-    return img
-
-
 def preprocess_img(url):
     # Download the image from the URL
     response = requests.get(url)
