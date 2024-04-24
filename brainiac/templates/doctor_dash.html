@@ -45,6 +45,9 @@
                     <p>
                         <bold>Email:</bold> {{ doctor.email_id }}
                     </p>
+                    <p>
+                        <bold>Experience:</bold> {{ doctor.experience }}
+                    </p>
                     <button class="btn waves-effect waves-light" id="editButton">Edit</button>
                 </div>
 
@@ -56,6 +59,7 @@
                     <input type="text" name="phone_number" value="{{ doctor.phone_number }}" placeholder="Phone Number">
                     <input type="date" name="birthday" value="{{ doctor.birthday }}" placeholder="Birthday">
                     <input type="email" name="email_id" value="{{ doctor.email_id }}" placeholder="Email">
+                    <input type="text" name="experience" value="{{ doctor.experience }}" placeholder="Experience">
                     <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
                 </form>
             </div>
