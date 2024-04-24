@@ -106,6 +106,16 @@
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('select');
             var instances = M.FormSelect.init(elems, {});
+            var role = document.getElementById('role');
+            var experienceField = document.getElementById('experience-field');
+
+            role.addEventListener('change', function () {
+                if (this.value === 'doctor') {
+                    experienceField.style.display = 'block';
+                } else {
+                    experienceField.style.display = 'none';
+                }
+            });
 
         });
 
