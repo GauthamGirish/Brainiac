@@ -36,14 +36,15 @@ def view_case(patient_id, case_number):
         treatment = request.form.get('treatment')
         diagnosis = request.form.get('diagnosis')
         case_name = "case" + str(case_number)
-        current_app.db.patients.update_one(
-            {"user_id": patient_id},
-            {
-                "$set": {"case_details." + case_name + ".treatment": treatment,
-                         "case_details." + case_name + ".diagnosis": diagnosis,
-                         "case_details." + case_name + ".status": "Complete", }
-            }
-        )
+        if treatment and diagnosis:
+            current_app.db.patients.update_one(
+                {"user_id": patient_id},
+                {
+                    "$set": {"case_details." + case_name + ".treatment": treatment,
+                             "case_details." + case_name + ".diagnosis": diagnosis,
+                             "case_details." + case_name + ".status": "Complete", }
+                }
+            )
 
     patient_data = current_app.db.patients.find_one({'user_id': patient_id})
     doctor_id = patient_data["case_details"]['case' + str(case_number)]["doctor_id"]

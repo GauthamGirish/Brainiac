@@ -113,7 +113,19 @@
             document.getElementById('details').style.display = 'none';
             document.getElementById('editForm').style.display = 'block';
         };
+
+        document.getElementById('editForm').addEventListener('submit', function (event) {
+            var diagnosis = document.getElementById('diagnosis').value.trim();
+            var treatment = document.getElementById('treatment').value.trim();
+
+            if (diagnosis === "" || treatment === "") {
+                event.preventDefault();
+                // Update the content of the error message div
+                document.getElementById('errorMessage').textContent = 'Please fill out both fields.';
+            }
+        });
     </script>
+
 
 </body>
 
