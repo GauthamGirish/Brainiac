@@ -30,7 +30,6 @@ def upload_image():
         if "case_number" in patient_data:
             case_count = patient_data["case_number"] + 1
 
-
         # update azure
         for scan in request.files.getlist("scans"):
             try:
@@ -57,11 +56,11 @@ def upload_image():
             {"user_id": patient_id},
             {
                 "$inc": {"case_number": 1},
-                "$set": {"case_details." + case_name: {"status" : "Processing", "scans": img_urls}}
+                "$set": {"case_details." + case_name: {"status": "Processing", "scans": img_urls}}
             }
         )
 
-        #passing necessary data to dl model
+        # passing necessary data to dl model
         tasks.process_case(patient_data, case_count, img_urls)
 
         return redirect(url_for('patient.dashboard'))

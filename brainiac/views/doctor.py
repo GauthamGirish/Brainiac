@@ -30,19 +30,21 @@ def dashboard():
 def view_case(patient_id, case_number):
     if session.get('user_id', default=None) is None:
         return redirect(url_for("auth.login"))
-    
-    if request.method == 'POST': 
+
+    if request.method == 'POST':
         patient_data = current_app.db.patients.find_one({'user_id': patient_id})
         treatment = request.form.get('treatment')
         diagnosis = request.form.get('diagnosis')
         case_name = "case" + str(case_number)
-        current_app.db.patients.update_one(
-            {"user_id": patient_id},
-            {
-                "$set": {"case_details." + case_name + ".treatment": treatment, 
-                         "case_details." + case_name + ".diagnosis": diagnosis}
-            }
-        )
+        if treatment and diagnosis:
+            current_app.db.patients.update_one(
+                {"user_id": patient_id},
+                {
+                    "$set": {"case_details." + case_name + ".treatment": treatment,
+                             "case_details." + case_name + ".diagnosis": diagnosis,
+                             "case_details." + case_name + ".status": "Complete", }
+                }
+            )
 
     patient_data = current_app.db.patients.find_one({'user_id': patient_id})
     doctor_id = patient_data["case_details"]['case' + str(case_number)]["doctor_id"]
@@ -63,6 +65,7 @@ def edit():
     phone_number = request.form.get('phone_number')
     address = request.form.get('address')
     birthday = request.form.get('birthday')
+    experience = request.form.get('experience')
     current_app.db.doctors.update_one(
         {"user_id": session['user_id']},
         {
@@ -73,7 +76,8 @@ def edit():
                 "phone_number": phone_number,
                 "address": address,
                 "gender": gender,
-                "birthday": birthday
+                "birthday": birthday,
+                "experience": experience
             },
         }
     )

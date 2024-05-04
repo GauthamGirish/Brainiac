@@ -80,7 +80,7 @@
             <h2 style=" margin-top: 0;">Brainiac's Diagnosis</h2>
             <div id="diagnosis-info">
                 <p>
-                    Diagnosis: {{ patient_data.case_details['case'+case_number|string]['diagnosis'] }}
+                    Diagnosis: {{ patient_data.case_details['case'+case_number|string]['prediction'] }}
                 </p>
                 <p>
                     Accuracy: {{ patient_data.case_details['case'+case_number|string]['accuracy'] }}
@@ -105,22 +105,42 @@
                 <button class="btn waves-effect waves-light" id="editButton">Edit</button>
             </div>
 
-            <form id="editForm" style="display: none;" method="POST"
+            {# <form id="editForm" style="display: none;" method="POST"
                 action="{{url_for('doctor.view_case', patient_id=patient_data.user_id, case_number=case_number)}}">
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea name="diagnosis" id="diagnosis" cols="30" rows="10"
+                        <textarea required name="diagnosis" id="diagnosis" cols="30" rows="10"
                             class="materialize-textarea"> {{ patient_data.case_details['case'+case_number|string]['diagnosis'] | trim }}</textarea>
                         <label for="diagnosis">Diagnosis:</label>
                     </div>
                     <div class="input-field col s12">
-                        <textarea name="treatment" id="treatment" cols="30" rows="10"
+                        <textarea required name="treatment" id="treatment" cols="30" rows="10"
                             class="materialize-textarea"> {{ patient_data.case_details["case"+case_number|string]["treatment"] | trim}}</textarea>
                         <label for="treatment">Treatment Plan:</label>
                         <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
                     </div>
                 </div>
+            </form> #}
+
+            <form id="editForm" style="display: none;" method="POST"
+                action="{{url_for('doctor.view_case', patient_id=patient_data.user_id, case_number=case_number)}}">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea required name="diagnosis" id="diagnosis" cols="30" rows="10"
+                            class="materialize-textarea"> {{ patient_data.case_details['case'+case_number|string]['diagnosis'] | trim }}</textarea>
+                        <label for="diagnosis">Diagnosis:</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <textarea required name="treatment" id="treatment" cols="30" rows="10"
+                            class="materialize-textarea"> {{ patient_data.case_details["case"+case_number|string]["treatment"] | trim}}</textarea>
+                        <label for="treatment">Treatment Plan:</label>
+                        <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
+                    </div>
+                </div>
+                <!-- Error message will be displayed here -->
+                <div id="errorMessage" style="color: red;"></div>
             </form>
+
         </div>
     </div>
 </div>

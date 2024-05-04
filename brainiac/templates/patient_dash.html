@@ -51,13 +51,18 @@
 
             <!-- Hidden form for editing details -->
             <form id="editForm" style="display: none;" method="POST" action="{{url_for('patient.edit')}}">
-                <input type="text" name="first_name" value="{{ patient.first_name }}" placeholder="First Name">
-                <input type="text" name="last_name" value="{{ patient.last_name }}" placeholder="Last Name">
-                <input type="text" name="gender" value="{{ patient.gender }}" placeholder="Gender">
-                <input type="text" name="phone_number" value="{{ patient.phone_number }}" placeholder="Phone Number">
-                <input type="date" name="birthday" value="{{ patient.birthday }}" placeholder="Birthday">
-                <input type="email" name="email_id" value="{{ patient.email_id }}" placeholder="Email">
-                <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
+                <input required type="text" name="first_name" value="{{ patient.first_name }}" placeholder="First Name">
+                <input required type="text" name="last_name" value="{{ patient.last_name }}" placeholder="Last Name">
+                <select required name="gender" value="{{ patient.gender }}">
+                    <option value="">Select Gender</option>
+                    <option value="Male" {% if patient.gender=="Male" %} selected {% endif %}>Male</option>
+                    <option value="Female" {% if patient.gender=="Female" %} selected {% endif %}>Female</option>
+                </select>
+                <inputrequired type="text" name="phone_number" value="{{ patient.phone_number }}"
+                    placeholder="Phone Number">
+                    <input required type="date" name="birthday" value="{{ patient.birthday }}" placeholder="Birthday">
+                    <input required type="email" name="email_id" value="{{ patient.email_id }}" placeholder="Email">
+                    <button type="submit" class="btn waves-effect waves-light">Submit Changes</button>
             </form>
         </div>
     </div>
